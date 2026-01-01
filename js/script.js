@@ -77,8 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const summaryCountsDisplay = document.getElementById('summaryCounts');
     const overallDayExperienceTextarea = document.getElementById('overallDayExperience');
     const overallCountsDisplay = document.getElementById('overallCounts');
-    const energyStressReasonTextarea = document.getElementById('energyStressReason');
-    const energyStressReasonCountsDisplay = document.getElementById('energyStressReasonCounts');
+    const energyReasonTextarea = document.getElementById('energyReason');
+    const energyReasonCountsDisplay = document.getElementById('energyReasonCounts');
+    const stressReasonTextarea = document.getElementById('stressReason');
+    const stressReasonCountsDisplay = document.getElementById('stressReasonCounts');
 
     const historyListContainer = document.getElementById('historyListContainer');
     const historyTabPanel = document.getElementById('tab-history');
@@ -325,12 +327,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function updateEnergyStressReasonCounts() {
-        if (energyStressReasonTextarea && energyStressReasonCountsDisplay) {
-            const text = energyStressReasonTextarea.value;
+    function updateEnergyReasonCounts() {
+        if (energyReasonTextarea && energyReasonCountsDisplay) {
+            const text = energyReasonTextarea.value;
             const charCount = text.length;
             const wordCount = text.trim() === '' ? 0 : text.trim().split(/\s+/).filter(Boolean).length;
-            energyStressReasonCountsDisplay.textContent = `Words: ${wordCount}, Chars: ${charCount}`;
+            energyReasonCountsDisplay.textContent = `Words: ${wordCount}, Chars: ${charCount}`;
+        }
+    }
+
+    function updateStressReasonCounts() {
+        if (stressReasonTextarea && stressReasonCountsDisplay) {
+            const text = stressReasonTextarea.value;
+            const charCount = text.length;
+            const wordCount = text.trim() === '' ? 0 : text.trim().split(/\s+/).filter(Boolean).length;
+            stressReasonCountsDisplay.textContent = `Words: ${wordCount}, Chars: ${charCount}`;
         }
     }
 
@@ -360,7 +371,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (elementId === 'dailyActivitySummary') updateSummaryCounts();
             if (elementId === 'overallDayExperience') updateOverallCounts();
-            if (elementId === 'energyStressReason') updateEnergyStressReasonCounts();
+            if (elementId === 'energyReason') updateEnergyReasonCounts();
+            if (elementId === 'stressReason') updateStressReasonCounts();
         }
     }
 
@@ -638,7 +650,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (nightMoodSlider) updateSliderDisplay(nightMoodSlider, nightMoodValueDisplay);
         updateSummaryCounts();
         updateOverallCounts();
-        updateEnergyStressReasonCounts();
+        updateEnergyReasonCounts();
+        updateStressReasonCounts();
         checkAndUpdateAllTabIcons();
         loadAppRecommendations();
     }
@@ -677,7 +690,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (jsonData.environment) { const envMap = { temperature_c: 'temperatureC', air_quality_index: 'airQualityIndex', humidity_percent: 'humidityPercent', uv_index: 'uvIndex', weather_condition: 'weatherCondition', environment_experience: 'environmentExperience' }; Object.keys(envMap).forEach(key => setValue(envMap[key], jsonData.environment[key])); setSelectorValuesFromData(jsonData.environment); }
         if (jsonData.body_measurements) { const bodyMap = { weight_kg: 'weightKg', height_cm: 'heightCm', chest: 'chest', belly: 'belly' }; Object.keys(bodyMap).forEach(key => setValue(bodyMap[key], jsonData.body_measurements[key])); }
-        if (jsonData.health_and_fitness) { const healthMap = { sleep_hours: 'sleepHours', sleep_quality: 'sleepQuality', sleep_quality_description: 'sleepQualityDescription', steps_count: 'stepsCount', steps_distance_km: 'stepsDistanceKm', kilocalorie: 'kilocalorie', water_intake_liters: 'waterIntakeLiters', medications_taken: 'medicationsTaken', physical_symptoms: 'physicalSymptoms', energy_level: 'energyLevel', stress_level: 'stressLevel', energy_stress_reason: 'energyStressReason' }; Object.keys(healthMap).forEach(key => setValue(healthMap[key], jsonData.health_and_fitness[key])); }
+        if (jsonData.health_and_fitness) { 
+            const healthMap = { 
+                sleep_hours: 'sleepHours', 
+                sleep_quality: 'sleepQuality', 
+                sleep_quality_description: 'sleepQualityDescription', 
+                steps_count: 'stepsCount', 
+                steps_distance_km: 'stepsDistanceKm', 
+                kilocalorie: 'kilocalorie', 
+                water_intake_liters: 'waterIntakeLiters', 
+                medications_taken: 'medicationsTaken', 
+                physical_symptoms: 'physicalSymptoms', 
+                energy_level: 'energyLevel', 
+                stress_level: 'stressLevel', 
+                energy_reason: 'energyReason', 
+                stress_reason: 'stressReason',
+                energy_stress_reason: 'energyReason'
+            }; 
+            Object.keys(healthMap).forEach(key => {
+                if (jsonData.health_and_fitness[key] !== undefined) {
+                    setValue(healthMap[key], jsonData.health_and_fitness[key]);
+                }
+            });
+            if (jsonData.health_and_fitness.energy_stress_reason && !jsonData.health_and_fitness.energy_reason) {
+                setValue('energyReason', jsonData.health_and_fitness.energy_stress_reason);
+            }
+        }
         if (jsonData.mental_and_emotional_health) { 
             setValue('mentalState', jsonData.mental_and_emotional_health.mental_state); 
             setValue('mentalStateReason', jsonData.mental_and_emotional_health.mental_state_reason); 
@@ -1234,7 +1272,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         exportData.environment = { temperature_c: entryFormData.temperatureC || '', air_quality_index: pInt(entryFormData.airQualityIndex), humidity_percent: pInt(entryFormData.humidityPercent), uv_index: pInt(entryFormData.uvIndex), weather_condition: entryFormData.weatherCondition || '', environment_experience: entryFormData.environmentExperience || '' };
         exportData.body_measurements = { weight_kg: pFloat(entryFormData.weightKg), height_cm: pInt(entryFormData.heightCm), chest: pInt(entryFormData.chest), belly: pInt(entryFormData.belly) };
-        exportData.health_and_fitness = { sleep_hours: entryFormData.sleepHours || '', sleep_quality: pInt(entryFormData.sleepQuality), sleep_quality_description: entryFormData.sleepQualityDescription || '', steps_count: pInt(entryFormData.stepsCount), steps_distance_km: pFloat(entryFormData.stepsDistanceKm), kilocalorie: pInt(entryFormData.kilocalorie), water_intake_liters: pFloat(entryFormData.waterIntakeLiters), medications_taken: entryFormData.medicationsTaken || '', physical_symptoms: entryFormData.physicalSymptoms || '', energy_level: pInt(entryFormData.energyLevel), stress_level: pInt(entryFormData.stressLevel), energy_stress_reason: entryFormData.energyStressReason || '' };
+        exportData.health_and_fitness = { sleep_hours: entryFormData.sleepHours || '', sleep_quality: pInt(entryFormData.sleepQuality), sleep_quality_description: entryFormData.sleepQualityDescription || '', steps_count: pInt(entryFormData.stepsCount), steps_distance_km: pFloat(entryFormData.stepsDistanceKm), kilocalorie: pInt(entryFormData.kilocalorie), water_intake_liters: pFloat(entryFormData.waterIntakeLiters), medications_taken: entryFormData.medicationsTaken || '', physical_symptoms: entryFormData.physicalSymptoms || '', energy_level: pInt(entryFormData.energyLevel), stress_level: pInt(entryFormData.stressLevel), energy_reason: entryFormData.energyReason || '', stress_reason: entryFormData.stressReason || '' };
         exportData.mental_and_emotional_health = { 
             mental_state: entryFormData.mentalState || '', 
             mental_state_reason: entryFormData.mentalStateReason || '', 
@@ -1597,7 +1635,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (dailyActivitySummaryTextarea) dailyActivitySummaryTextarea.addEventListener('input', updateSummaryCounts);
     if (overallDayExperienceTextarea) overallDayExperienceTextarea.addEventListener('input', updateOverallCounts);
-    if (energyStressReasonTextarea) energyStressReasonTextarea.addEventListener('input', updateEnergyStressReasonCounts);
+    if (energyReasonTextarea) energyReasonTextarea.addEventListener('input', updateEnergyReasonCounts);
+    if (stressReasonTextarea) stressReasonTextarea.addEventListener('input', updateStressReasonCounts);
 
     diaryForm.addEventListener('submit', function (event) {
         event.preventDefault();
