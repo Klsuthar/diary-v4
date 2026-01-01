@@ -291,6 +291,40 @@
                             <div> <label for="mentalStateReason">Mental State Reason:</label> <input type="text"
                                     id="mentalStateReason" name="mentalStateReason"
                                     placeholder="e.g., Work pressure, Good news, Family time"> </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend><i class="fas fa-clock icon-legend"></i> Mood Timeline</legend>
+                            <div class="mood-timeline-entry">
+                                <label>🌅 Morning:</label>
+                                <div class="mood-input-group">
+                                    <input type="number" id="morningMoodLevel" name="morningMoodLevel" min="0" max="10" placeholder="0-10" class="mood-level-input">
+                                    <input type="text" id="morningMoodFeeling" name="morningMoodFeeling" placeholder="e.g., Energetic, Tired" class="mood-feeling-input">
+                                </div>
+                            </div>
+                            <div class="mood-timeline-entry">
+                                <label>☀️ Afternoon:</label>
+                                <div class="mood-input-group">
+                                    <input type="number" id="afternoonMoodLevel" name="afternoonMoodLevel" min="0" max="10" placeholder="0-10" class="mood-level-input">
+                                    <input type="text" id="afternoonMoodFeeling" name="afternoonMoodFeeling" placeholder="e.g., Focused, Stressed" class="mood-feeling-input">
+                                </div>
+                            </div>
+                            <div class="mood-timeline-entry">
+                                <label>🌆 Evening:</label>
+                                <div class="mood-input-group">
+                                    <input type="number" id="eveningMoodLevel" name="eveningMoodLevel" min="0" max="10" placeholder="0-10" class="mood-level-input">
+                                    <input type="text" id="eveningMoodFeeling" name="eveningMoodFeeling" placeholder="e.g., Relaxed, Anxious" class="mood-feeling-input">
+                                </div>
+                            </div>
+                            <div class="mood-timeline-entry">
+                                <label>🌙 Night:</label>
+                                <div class="mood-input-group">
+                                    <input type="number" id="nightMoodLevel" name="nightMoodLevel" min="0" max="10" placeholder="0-10" class="mood-level-input">
+                                    <input type="text" id="nightMoodFeeling" name="nightMoodFeeling" placeholder="e.g., Peaceful, Restless" class="mood-feeling-input">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend><i class="fas fa-om icon-legend"></i> Meditation</legend>
                             <div> <label for="meditationStatus">Meditation Status:</label> <input type="text"
                                     id="meditationStatus" name="meditationStatus"
                                     placeholder="e.g., Completed, Skipped"> </div>
@@ -392,6 +426,9 @@
                                 </div>
                                 <datalist id="appNameSuggestions"></datalist>
                             </div>
+                            <div> <label for="appUsageIntent">App Usage Intent:</label> <input type="text"
+                                    id="appUsageIntent" name="appUsageIntent"
+                                    placeholder="e.g., Work, Entertainment, Learning"> </div>
                         </fieldset>
                     </div>
 

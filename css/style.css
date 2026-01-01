@@ -1812,6 +1812,41 @@ button:disabled {
     font-style: italic;
 }
 
+/* --- Mood Timeline Styles --- */
+.mood-timeline-entry {
+    margin-bottom: 16px;
+    padding: 12px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), transparent);
+    border-radius: var(--border-radius-sm);
+    border-left: 3px solid var(--accent-color);
+}
+
+.mood-timeline-entry label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.mood-input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.mood-level-input {
+    width: 70px;
+    flex-shrink: 0;
+    text-align: center;
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.mood-feeling-input {
+    flex: 1;
+}
+
 /* --- Media Queries for Responsiveness --- */
 @media (min-width: 400px) {
 

@@ -609,21 +609,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function populateFormWithJson(jsonData) {
-        // Version check can be added here in the future
-        // if (jsonData.version === '1.0') { ... }
-
         loadFormForDate(jsonData.date);
-
         setValue('date', jsonData.date);
         updateCurrentDateDisplay(jsonData.date);
 
         if (jsonData.environment) { const envMap = { temperature_c: 'temperatureC', air_quality_index: 'airQualityIndex', humidity_percent: 'humidityPercent', uv_index: 'uvIndex', weather_condition: 'weatherCondition', environment_experience: 'environmentExperience' }; Object.keys(envMap).forEach(key => setValue(envMap[key], jsonData.environment[key])); setSelectorValuesFromData(jsonData.environment); }
         if (jsonData.body_measurements) { const bodyMap = { weight_kg: 'weightKg', height_cm: 'heightCm', chest: 'chest', belly: 'belly' }; Object.keys(bodyMap).forEach(key => setValue(bodyMap[key], jsonData.body_measurements[key])); }
         if (jsonData.health_and_fitness) { const healthMap = { sleep_hours: 'sleepHours', sleep_quality: 'sleepQuality', sleep_quality_description: 'sleepQualityDescription', steps_count: 'stepsCount', steps_distance_km: 'stepsDistanceKm', kilocalorie: 'kilocalorie', water_intake_liters: 'waterIntakeLiters', medications_taken: 'medicationsTaken', physical_symptoms: 'physicalSymptoms', energy_level: 'energyLevel', stress_level: 'stressLevel', energy_stress_reason: 'energyStressReason' }; Object.keys(healthMap).forEach(key => setValue(healthMap[key], jsonData.health_and_fitness[key])); }
-        if (jsonData.mental_and_emotional_health) { setValue('mentalState', jsonData.mental_and_emotional_health.mental_state); setValue('mentalStateReason', jsonData.mental_and_emotional_health.mental_state_reason); setValue('meditationStatus', jsonData.mental_and_emotional_health.meditation_status); setValue('meditationDurationMin', jsonData.mental_and_emotional_health.meditation_duration_min); }
+        if (jsonData.mental_and_emotional_health) { 
+            setValue('mentalState', jsonData.mental_and_emotional_health.mental_state); 
+            setValue('mentalStateReason', jsonData.mental_and_emotional_health.mental_state_reason); 
+            if (jsonData.mental_and_emotional_health.mood_timeline) {
+                const mt = jsonData.mental_and_emotional_health.mood_timeline;
+                setValue('morningMoodLevel', mt.morning?.mood_level);
+                setValue('morningMoodFeeling', mt.morning?.mood_feeling);
+                setValue('afternoonMoodLevel', mt.afternoon?.mood_level);
+                setValue('afternoonMoodFeeling', mt.afternoon?.mood_feeling);
+                setValue('eveningMoodLevel', mt.evening?.mood_level);
+                setValue('eveningMoodFeeling', mt.evening?.mood_feeling);
+                setValue('nightMoodLevel', mt.night?.mood_level);
+                setValue('nightMoodFeeling', mt.night?.mood_feeling);
+            }
+            setValue('meditationStatus', jsonData.mental_and_emotional_health.meditation_status); 
+            setValue('meditationDurationMin', jsonData.mental_and_emotional_health.meditation_duration_min); 
+        }
         if (jsonData.personal_care) { setValue('faceProductName', jsonData.personal_care.face_product_name); setValue('faceProductBrand', jsonData.personal_care.face_product_brand); setValue('hairProductName', jsonData.personal_care.hair_product_name); setValue('hairProductBrand', jsonData.personal_care.hair_product_brand); setValue('hairOil', jsonData.personal_care.hair_oil); setValue('skincareRoutine', jsonData.personal_care.skincare_routine); }
         if (jsonData.diet_and_nutrition) { setValue('breakfast', jsonData.diet_and_nutrition.breakfast); setValue('lunch', jsonData.diet_and_nutrition.lunch); setValue('dinner', jsonData.diet_and_nutrition.dinner); setValue('additionalItems', jsonData.diet_and_nutrition.additional_items); }
-        if (jsonData.activities_and_productivity) { setValue('tasksTodayEnglish', jsonData.activities_and_productivity.tasks_today_english); setValue('travelDestination', jsonData.activities_and_productivity.travel_destination); setValue('phoneScreenOnHr', jsonData.activities_and_productivity.phone_screen_on_hr); if (jsonData.activities_and_productivity.most_used_apps) { const apps = jsonData.activities_and_productivity.most_used_apps; setValue('app1Name', apps.app1?.name); setValue('app1Time', apps.app1?.time); setValue('app2Name', apps.app2?.name); setValue('app2Time', apps.app2?.time); setValue('app3Name', apps.app3?.name); setValue('app3Time', apps.app3?.time); setValue('app4Name', apps.app4?.name); setValue('app4Time', apps.app4?.time); setValue('app5Name', apps.app5?.name); setValue('app5Time', apps.app5?.time); } }
+        if (jsonData.activities_and_productivity) { 
+            setValue('tasksTodayEnglish', jsonData.activities_and_productivity.tasks_today_english); 
+            setValue('travelDestination', jsonData.activities_and_productivity.travel_destination); 
+            setValue('phoneScreenOnHr', jsonData.activities_and_productivity.phone_screen_on_hr); 
+            if (jsonData.activities_and_productivity.most_used_apps) { 
+                const apps = jsonData.activities_and_productivity.most_used_apps;
+                if (Array.isArray(apps)) {
+                    apps.forEach(app => {
+                        if (app.rank >= 1 && app.rank <= 5) {
+                            setValue(`app${app.rank}Name`, app.name);
+                            setValue(`app${app.rank}Time`, app.time);
+                        }
+                    });
+                } else {
+                    setValue('app1Name', apps.app1?.name); setValue('app1Time', apps.app1?.time);
+                    setValue('app2Name', apps.app2?.name); setValue('app2Time', apps.app2?.time);
+                    setValue('app3Name', apps.app3?.name); setValue('app3Time', apps.app3?.time);
+                    setValue('app4Name', apps.app4?.name); setValue('app4Time', apps.app4?.time);
+                    setValue('app5Name', apps.app5?.name); setValue('app5Time', apps.app5?.time);
+                }
+            }
+            setValue('appUsageIntent', jsonData.activities_and_productivity.app_usage_intent);
+        }
         if (jsonData.additional_notes) { setValue('keyEvents', jsonData.additional_notes.key_events); setValue('otherNoteStatus', jsonData.additional_notes.other_note_status || 'No'); } else { setValue('otherNoteStatus', 'No'); }
         setValue('dailyActivitySummary', jsonData.daily_activity_summary);
         setValue('overallDayExperience', jsonData.overall_day_experience);
@@ -1116,7 +1150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function getFullEntryDataForExport(entryFormData, dateKey) {
         const exportData = {};
-        exportData.version = "3.0";
+        exportData.version = "4.0";
         exportData.date = entryFormData.date || dateKey;
         exportData.day_id = calculateDaysSince(REFERENCE_START_DATE, exportData.date);
         
@@ -1135,10 +1169,33 @@ document.addEventListener('DOMContentLoaded', () => {
         exportData.environment = { temperature_c: entryFormData.temperatureC || '', air_quality_index: pInt(entryFormData.airQualityIndex), humidity_percent: pInt(entryFormData.humidityPercent), uv_index: pInt(entryFormData.uvIndex), weather_condition: entryFormData.weatherCondition || '', environment_experience: entryFormData.environmentExperience || '' };
         exportData.body_measurements = { weight_kg: pFloat(entryFormData.weightKg), height_cm: pInt(entryFormData.heightCm), chest: pInt(entryFormData.chest), belly: pInt(entryFormData.belly) };
         exportData.health_and_fitness = { sleep_hours: entryFormData.sleepHours || '', sleep_quality: pInt(entryFormData.sleepQuality), sleep_quality_description: entryFormData.sleepQualityDescription || '', steps_count: pInt(entryFormData.stepsCount), steps_distance_km: pFloat(entryFormData.stepsDistanceKm), kilocalorie: pInt(entryFormData.kilocalorie), water_intake_liters: pFloat(entryFormData.waterIntakeLiters), medications_taken: entryFormData.medicationsTaken || '', physical_symptoms: entryFormData.physicalSymptoms || '', energy_level: pInt(entryFormData.energyLevel), stress_level: pInt(entryFormData.stressLevel), energy_stress_reason: entryFormData.energyStressReason || '' };
-        exportData.mental_and_emotional_health = { mental_state: entryFormData.mentalState || '', mental_state_reason: entryFormData.mentalStateReason || '', meditation_status: entryFormData.meditationStatus || '', meditation_duration_min: pInt(entryFormData.meditationDurationMin) };
+        exportData.mental_and_emotional_health = { 
+            mental_state: entryFormData.mentalState || '', 
+            mental_state_reason: entryFormData.mentalStateReason || '', 
+            mood_timeline: {
+                morning: { mood_level: pInt(entryFormData.morningMoodLevel), mood_feeling: entryFormData.morningMoodFeeling || '' },
+                afternoon: { mood_level: pInt(entryFormData.afternoonMoodLevel), mood_feeling: entryFormData.afternoonMoodFeeling || '' },
+                evening: { mood_level: pInt(entryFormData.eveningMoodLevel), mood_feeling: entryFormData.eveningMoodFeeling || '' },
+                night: { mood_level: pInt(entryFormData.nightMoodLevel), mood_feeling: entryFormData.nightMoodFeeling || '' }
+            },
+            meditation_status: entryFormData.meditationStatus || '', 
+            meditation_duration_min: pInt(entryFormData.meditationDurationMin) 
+        };
         exportData.personal_care = { face_product_name: entryFormData.faceProductName || '', face_product_brand: entryFormData.faceProductBrand || '', hair_product_name: entryFormData.hairProductName || '', hair_product_brand: entryFormData.hairProductBrand || '', hair_oil: entryFormData.hairOil || '', skincare_routine: entryFormData.skincareRoutine || '' };
         exportData.diet_and_nutrition = { breakfast: entryFormData.breakfast || '', lunch: entryFormData.lunch || '', dinner: entryFormData.dinner || '', additional_items: entryFormData.additionalItems || '' };
-        exportData.activities_and_productivity = { tasks_today_english: entryFormData.tasksTodayEnglish || '', travel_destination: entryFormData.travelDestination || '', phone_screen_on_hr: entryFormData.phoneScreenOnHr || '', most_used_apps: { app1: { name: entryFormData.app1Name || '', time: entryFormData.app1Time || '' }, app2: { name: entryFormData.app2Name || '', time: entryFormData.app2Time || '' }, app3: { name: entryFormData.app3Name || '', time: entryFormData.app3Time || '' }, app4: { name: entryFormData.app4Name || '', time: entryFormData.app4Time || '' }, app5: { name: entryFormData.app5Name || '', time: entryFormData.app5Time || '' } } };
+        exportData.activities_and_productivity = { 
+            tasks_today_english: entryFormData.tasksTodayEnglish || '', 
+            travel_destination: entryFormData.travelDestination || '', 
+            phone_screen_on_hr: entryFormData.phoneScreenOnHr || '', 
+            most_used_apps: [
+                { rank: 1, name: entryFormData.app1Name || '', time: entryFormData.app1Time || '' },
+                { rank: 2, name: entryFormData.app2Name || '', time: entryFormData.app2Time || '' },
+                { rank: 3, name: entryFormData.app3Name || '', time: entryFormData.app3Time || '' },
+                { rank: 4, name: entryFormData.app4Name || '', time: entryFormData.app4Time || '' },
+                { rank: 5, name: entryFormData.app5Name || '', time: entryFormData.app5Time || '' }
+            ],
+            app_usage_intent: entryFormData.appUsageIntent || ''
+        };
         exportData.additional_notes = { key_events: entryFormData.keyEvents || '', other_note_status: entryFormData.otherNoteStatus || 'No' };
         exportData.daily_activity_summary = entryFormData.dailyActivitySummary || '';
         exportData.overall_day_experience = entryFormData.overallDayExperience || '';
