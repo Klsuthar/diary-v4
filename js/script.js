@@ -53,6 +53,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const uvIndexSlider = document.getElementById('uvIndex');
     const uvIndexValueDisplay = document.getElementById('uvIndexValue');
 
+    // Mood sliders
+    const morningMoodSlider = document.getElementById('morningMoodLevel');
+    const morningMoodValueDisplay = document.getElementById('morningMoodValue');
+    const afternoonMoodSlider = document.getElementById('afternoonMoodLevel');
+    const afternoonMoodValueDisplay = document.getElementById('afternoonMoodValue');
+    const eveningMoodSlider = document.getElementById('eveningMoodLevel');
+    const eveningMoodValueDisplay = document.getElementById('eveningMoodValue');
+    const nightMoodSlider = document.getElementById('nightMoodLevel');
+    const nightMoodValueDisplay = document.getElementById('nightMoodValue');
+
     // --- Scroll Selector Elements ---
     const temperatureMinSelector = document.getElementById('temperatureMinSelector');
     const temperatureMaxSelector = document.getElementById('temperatureMaxSelector');
@@ -343,6 +353,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (element.id === 'stressLevel') updateSliderDisplay(element, stressLevelValueDisplay);
                 if (element.id === 'sleepQuality') updateSliderDisplay(element, sleepQualityValueDisplay);
                 if (element.id === 'uvIndex') updateSliderDisplay(element, uvIndexValueDisplay);
+                if (element.id === 'morningMoodLevel') updateSliderDisplay(element, morningMoodValueDisplay);
+                if (element.id === 'afternoonMoodLevel') updateSliderDisplay(element, afternoonMoodValueDisplay);
+                if (element.id === 'eveningMoodLevel') updateSliderDisplay(element, eveningMoodValueDisplay);
+                if (element.id === 'nightMoodLevel') updateSliderDisplay(element, nightMoodValueDisplay);
             }
             if (elementId === 'dailyActivitySummary') updateSummaryCounts();
             if (elementId === 'overallDayExperience') updateOverallCounts();
@@ -383,22 +397,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setMoodSliderValue(inputId, value) {
         if (value === null || value === undefined) return;
-        const hiddenInput = document.getElementById(inputId);
-        if (!hiddenInput) return;
+        const slider = document.getElementById(inputId);
+        if (!slider) return;
         
-        hiddenInput.value = value;
+        slider.value = value;
         
-        const timeOfDay = inputId.replace('MoodLevel', '');
-        const wrapper = document.querySelector(`#${timeOfDay}MoodLevelSelector .mood-slider-numbers`);
-        if (wrapper) {
-            wrapper.querySelectorAll('span').forEach(span => {
-                if (span.dataset.value == value) {
-                    span.classList.add('active');
-                } else {
-                    span.classList.remove('active');
-                }
-            });
-        }
+        if (inputId === 'morningMoodLevel' && morningMoodValueDisplay) morningMoodValueDisplay.textContent = value;
+        if (inputId === 'afternoonMoodLevel' && afternoonMoodValueDisplay) afternoonMoodValueDisplay.textContent = value;
+        if (inputId === 'eveningMoodLevel' && eveningMoodValueDisplay) eveningMoodValueDisplay.textContent = value;
+        if (inputId === 'nightMoodLevel' && nightMoodValueDisplay) nightMoodValueDisplay.textContent = value;
     }
 
     function calculateDaysSince(startDate, endDateStr) {
@@ -625,6 +632,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (stressLevelSlider) updateSliderDisplay(stressLevelSlider, stressLevelValueDisplay);
         if (sleepQualitySlider) updateSliderDisplay(sleepQualitySlider, sleepQualityValueDisplay);
         if (uvIndexSlider) updateSliderDisplay(uvIndexSlider, uvIndexValueDisplay);
+        if (morningMoodSlider) updateSliderDisplay(morningMoodSlider, morningMoodValueDisplay);
+        if (afternoonMoodSlider) updateSliderDisplay(afternoonMoodSlider, afternoonMoodValueDisplay);
+        if (eveningMoodSlider) updateSliderDisplay(eveningMoodSlider, eveningMoodValueDisplay);
+        if (nightMoodSlider) updateSliderDisplay(nightMoodSlider, nightMoodValueDisplay);
         updateSummaryCounts();
         updateOverallCounts();
         updateEnergyStressReasonCounts();
@@ -718,6 +729,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (stressLevelSlider) updateSliderDisplay(stressLevelSlider, stressLevelValueDisplay);
         if (sleepQualitySlider) updateSliderDisplay(sleepQualitySlider, sleepQualityValueDisplay);
         if (uvIndexSlider) updateSliderDisplay(uvIndexSlider, uvIndexValueDisplay);
+        if (morningMoodSlider) updateSliderDisplay(morningMoodSlider, morningMoodValueDisplay);
+        if (afternoonMoodSlider) updateSliderDisplay(afternoonMoodSlider, afternoonMoodValueDisplay);
+        if (eveningMoodSlider) updateSliderDisplay(eveningMoodSlider, eveningMoodValueDisplay);
+        if (nightMoodSlider) updateSliderDisplay(nightMoodSlider, nightMoodValueDisplay);
         updateSummaryCounts();
         updateOverallCounts();
         checkAndUpdateAllTabIcons();
@@ -1572,6 +1587,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (energyLevelSlider) energyLevelSlider.addEventListener('input', () => updateSliderDisplay(energyLevelSlider, energyLevelValueDisplay));
     if (stressLevelSlider) stressLevelSlider.addEventListener('input', () => updateSliderDisplay(stressLevelSlider, stressLevelValueDisplay));
     if (sleepQualitySlider) sleepQualitySlider.addEventListener('input', () => updateSliderDisplay(sleepQualitySlider, sleepQualityValueDisplay));
+    if (uvIndexSlider) uvIndexSlider.addEventListener('input', () => updateSliderDisplay(uvIndexSlider, uvIndexValueDisplay));
+    if (morningMoodSlider) morningMoodSlider.addEventListener('input', () => updateSliderDisplay(morningMoodSlider, morningMoodValueDisplay));
+    if (afternoonMoodSlider) afternoonMoodSlider.addEventListener('input', () => updateSliderDisplay(afternoonMoodSlider, afternoonMoodValueDisplay));
+    if (eveningMoodSlider) eveningMoodSlider.addEventListener('input', () => updateSliderDisplay(eveningMoodSlider, eveningMoodValueDisplay));
+    if (nightMoodSlider) nightMoodSlider.addEventListener('input', () => updateSliderDisplay(nightMoodSlider, nightMoodValueDisplay));
 
     if (uvIndexSlider) uvIndexSlider.addEventListener('input', () => updateSliderDisplay(uvIndexSlider, uvIndexValueDisplay));
 
@@ -2206,27 +2226,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupMoodDropdown('afternoonMoodCategory', 'afternoonMoodFeeling');
     setupMoodDropdown('eveningMoodCategory', 'eveningMoodFeeling');
     setupMoodDropdown('nightMoodCategory', 'nightMoodFeeling');
-    
-    // Setup mood level sliders
-    function setupMoodSlider(wrapperId, hiddenInputId) {
-        const wrapper = document.querySelector(`#${wrapperId} .mood-slider-numbers`);
-        const hiddenInput = document.getElementById(hiddenInputId);
-        if (!wrapper || !hiddenInput) return;
-        
-        wrapper.querySelectorAll('span').forEach(span => {
-            span.addEventListener('click', function() {
-                wrapper.querySelectorAll('span').forEach(s => s.classList.remove('active'));
-                this.classList.add('active');
-                hiddenInput.value = this.dataset.value;
-                checkAndUpdateAllTabIcons();
-            });
-        });
-    }
-    
-    setupMoodSlider('morningMoodLevelSelector', 'morningMoodLevel');
-    setupMoodSlider('afternoonMoodLevelSelector', 'afternoonMoodLevel');
-    setupMoodSlider('eveningMoodLevelSelector', 'eveningMoodLevel');
-    setupMoodSlider('nightMoodLevelSelector', 'nightMoodLevel');
     
     checkPasswordProtection();
 

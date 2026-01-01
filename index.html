@@ -284,25 +284,8 @@
                         <fieldset>
                             <legend><i class="fas fa-clock icon-legend"></i> Mood Timeline</legend>
                             <div class="mood-timeline-entry">
-                                <label>🌅 Morning:</label>
-                                <div class="mood-slider-wrapper">
-                                    <div class="mood-slider-track">
-                                        <div class="mood-slider-numbers">
-                                            <span data-value="0">0</span>
-                                            <span data-value="1">1</span>
-                                            <span data-value="2">2</span>
-                                            <span data-value="3">3</span>
-                                            <span data-value="4">4</span>
-                                            <span data-value="5">5</span>
-                                            <span data-value="6">6</span>
-                                            <span data-value="7">7</span>
-                                            <span data-value="8">8</span>
-                                            <span data-value="9">9</span>
-                                            <span data-value="10">10</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="morningMoodLevel" name="morningMoodLevel">
+                                <label>🌅 Morning: <span id="morningMoodValue">5</span></label>
+                                <input type="range" id="morningMoodLevel" name="morningMoodLevel" min="1" max="10" value="5" step="1" inputmode="none">
                                 <div class="mood-input-group">
                                     <select id="morningMoodCategory" class="mood-category-select">
                                         <option value="">Category</option>
@@ -318,25 +301,8 @@
                                 </div>
                             </div>
                             <div class="mood-timeline-entry">
-                                <label>☀️ Afternoon:</label>
-                                <div class="mood-slider-wrapper">
-                                    <div class="mood-slider-track">
-                                        <div class="mood-slider-numbers">
-                                            <span data-value="0">0</span>
-                                            <span data-value="1">1</span>
-                                            <span data-value="2">2</span>
-                                            <span data-value="3">3</span>
-                                            <span data-value="4">4</span>
-                                            <span data-value="5">5</span>
-                                            <span data-value="6">6</span>
-                                            <span data-value="7">7</span>
-                                            <span data-value="8">8</span>
-                                            <span data-value="9">9</span>
-                                            <span data-value="10">10</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="afternoonMoodLevel" name="afternoonMoodLevel">
+                                <label>☀️ Afternoon: <span id="afternoonMoodValue">5</span></label>
+                                <input type="range" id="afternoonMoodLevel" name="afternoonMoodLevel" min="1" max="10" value="5" step="1" inputmode="none">
                                 <div class="mood-input-group">
                                     <select id="afternoonMoodCategory" class="mood-category-select">
                                         <option value="">Category</option>
@@ -352,25 +318,8 @@
                                 </div>
                             </div>
                             <div class="mood-timeline-entry">
-                                <label>🌆 Evening:</label>
-                                <div class="mood-slider-wrapper">
-                                    <div class="mood-slider-track">
-                                        <div class="mood-slider-numbers">
-                                            <span data-value="0">0</span>
-                                            <span data-value="1">1</span>
-                                            <span data-value="2">2</span>
-                                            <span data-value="3">3</span>
-                                            <span data-value="4">4</span>
-                                            <span data-value="5">5</span>
-                                            <span data-value="6">6</span>
-                                            <span data-value="7">7</span>
-                                            <span data-value="8">8</span>
-                                            <span data-value="9">9</span>
-                                            <span data-value="10">10</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="eveningMoodLevel" name="eveningMoodLevel">
+                                <label>🌆 Evening: <span id="eveningMoodValue">5</span></label>
+                                <input type="range" id="eveningMoodLevel" name="eveningMoodLevel" min="1" max="10" value="5" step="1" inputmode="none">
                                 <div class="mood-input-group">
                                     <select id="eveningMoodCategory" class="mood-category-select">
                                         <option value="">Category</option>
@@ -386,25 +335,8 @@
                                 </div>
                             </div>
                             <div class="mood-timeline-entry">
-                                <label>🌙 Night:</label>
-                                <div class="mood-slider-wrapper">
-                                    <div class="mood-slider-track">
-                                        <div class="mood-slider-numbers">
-                                            <span data-value="0">0</span>
-                                            <span data-value="1">1</span>
-                                            <span data-value="2">2</span>
-                                            <span data-value="3">3</span>
-                                            <span data-value="4">4</span>
-                                            <span data-value="5">5</span>
-                                            <span data-value="6">6</span>
-                                            <span data-value="7">7</span>
-                                            <span data-value="8">8</span>
-                                            <span data-value="9">9</span>
-                                            <span data-value="10">10</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="nightMoodLevel" name="nightMoodLevel">
+                                <label>🌙 Night: <span id="nightMoodValue">5</span></label>
+                                <input type="range" id="nightMoodLevel" name="nightMoodLevel" min="1" max="10" value="5" step="1" inputmode="none">
                                 <div class="mood-input-group">
                                     <select id="nightMoodCategory" class="mood-category-select">
                                         <option value="">Category</option>
