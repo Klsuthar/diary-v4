@@ -1814,26 +1814,17 @@ button:disabled {
 
 /* --- Mood Timeline Styles --- */
 .mood-timeline-entry {
-    margin-bottom: 14px;
-    padding: 14px;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(99, 102, 241, 0.08));
-    border-radius: 12px;
-    border-left: 4px solid #3b82f6;
-    box-shadow: 0 3px 10px rgba(59, 130, 246, 0.15);
-    transition: all 0.2s ease;
-}
-
-.mood-timeline-entry:hover {
-    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.22);
-    transform: translateY(-1px);
+    margin-bottom: 20px;
 }
 
 .mood-timeline-entry label {
-    display: block;
-    font-weight: 600;
-    color: #60a5fa;
-    margin-bottom: 10px;
-    font-size: 0.92rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
 }
 
 .mood-slider-wrapper {
@@ -1912,23 +1903,22 @@ button:disabled {
     text-align: center;
     font-weight: 500;
     border-radius: 10px;
-    border: 2px solid rgba(59, 130, 246, 0.3);
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(30, 41, 59, 0.85));
+    border: 2px solid var(--tertiary-bg);
+    background: var(--secondary-bg);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .mood-category-select:hover,
 .mood-feeling-select:hover:not(:disabled) {
-    border-color: rgba(59, 130, 246, 0.5);
-    background: linear-gradient(135deg, rgba(30, 41, 59, 1), rgba(30, 41, 59, 0.9));
+    border-color: rgba(245, 158, 11, 0.3);
 }
 
 .mood-category-select:focus,
 .mood-feeling-select:focus:not(:disabled) {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-light);
 }
 
 .mood-feeling-select:disabled {
