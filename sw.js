@@ -1,29 +1,32 @@
 // sw.js - Service Worker
 
 // --- Cache Configuration ---
-const APP_SHELL_CACHE_NAME = 'my-personal-diary-static-v33';
-const DYNAMIC_CACHE_NAME = 'my-personal-diary-dynamic-v33';
-const FONTS_CACHE_NAME = 'my-personal-diary-fonts-v33';
-const IMAGES_CACHE_NAME = 'my-personal-diary-images-v33';
+const APP_SHELL_CACHE_NAME = 'my-personal-diary-static-v34';
+const DYNAMIC_CACHE_NAME = 'my-personal-diary-dynamic-v34';
+const FONTS_CACHE_NAME = 'my-personal-diary-fonts-v34';
+const IMAGES_CACHE_NAME = 'my-personal-diary-images-v34';
 
 // Cache size limits
 const MAX_DYNAMIC_CACHE_SIZE = 50;
 const MAX_IMAGES_CACHE_SIZE = 20;
 
+const BASE_PATH = '/diary-v4';
+
 const APP_SHELL_ASSETS = [
-    './index.html',
-    './settings.html',
-    './css/style.css',
-    './css/settings.css',
-    './js/script.js',
-    './js/settings.js',
-    './images/logo.ico',
-    './images/logo.png',
-    './images/logo16.png',
-    './images/logo32.png',
-    './images/logo64.png',
-    './images/logo256.png',
-    './images/logo512.png'
+    `${BASE_PATH}/`,
+    `${BASE_PATH}/index.html`,
+    `${BASE_PATH}/settings.html`,
+    `${BASE_PATH}/css/style.css`,
+    `${BASE_PATH}/css/settings.css`,
+    `${BASE_PATH}/js/script.js`,
+    `${BASE_PATH}/js/settings.js`,
+    `${BASE_PATH}/images/logo.ico`,
+    `${BASE_PATH}/images/logo.png`,
+    `${BASE_PATH}/images/logo16.png`,
+    `${BASE_PATH}/images/logo32.png`,
+    `${BASE_PATH}/images/logo64.png`,
+    `${BASE_PATH}/images/logo256.png`,
+    `${BASE_PATH}/images/logo512.png`
 ];
 
 const EXTERNAL_ASSETS = [
@@ -115,7 +118,9 @@ self.addEventListener('fetch', event => {
                 .catch(() => {
                     // If the network request fails (e.g., user is offline), serve the main index.html from the cache.
                     console.log('[Service Worker] Navigation fetch failed. Serving offline fallback from cache.');
-                    return caches.match('./index.html');
+                    return caches.match(`${BASE_PATH}/index.html`).then(response => {
+                        return response || caches.match(`${BASE_PATH}/`);
+                    });
                 })
         );
         return;
@@ -167,7 +172,7 @@ self.addEventListener('push', event => {
         icon: 'images/logo256.png',
         badge: 'images/logo64.png',
         vibrate: [200, 100, 200],
-        data: { url: './' },
+        data: { url: `${BASE_PATH}/` },
         actions: [
             { action: 'open', title: 'Open Diary', icon: 'images/logo32.png' },
             { action: 'close', title: 'Close', icon: 'images/logo32.png' }
@@ -186,7 +191,7 @@ self.addEventListener('notificationclick', event => {
     
     if (event.action === 'open' || !event.action) {
         event.waitUntil(
-            clients.openWindow('./')
+            clients.openWindow(`${BASE_PATH}/`)
         );
     }
 });

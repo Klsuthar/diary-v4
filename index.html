@@ -541,7 +541,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js').catch(() => {});
+                navigator.serviceWorker.register('/diary-v4/sw.js', { scope: '/diary-v4/' }).catch(() => {});
             });
         }
     </script>
