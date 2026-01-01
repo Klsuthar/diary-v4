@@ -11,23 +11,23 @@ const MAX_DYNAMIC_CACHE_SIZE = 50;
 const MAX_IMAGES_CACHE_SIZE = 20;
 
 const APP_SHELL_ASSETS = [
-    '/index.html',
-    '/settings.html',
-    '/css/style.css',
-    '/css/settings.css',
-    '/js/script.js',
-    '/js/settings.js',
-    '/images/logo.ico',
-    '/images/logo.svg',
-    '/images/logo16.png',
-    '/images/logo32.png',
-    '/images/logo64.png',
-    '/images/logo256.png',
-    '/images/logo512.png'
+    './index.html',
+    './settings.html',
+    './css/style.css',
+    './css/settings.css',
+    './js/script.js',
+    './js/settings.js',
+    './images/logo.ico',
+    './images/logo.png',
+    './images/logo16.png',
+    './images/logo32.png',
+    './images/logo64.png',
+    './images/logo256.png',
+    './images/logo512.png'
 ];
 
 const EXTERNAL_ASSETS = [
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css',
     'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap'
 ];
 
@@ -115,7 +115,7 @@ self.addEventListener('fetch', event => {
                 .catch(() => {
                     // If the network request fails (e.g., user is offline), serve the main index.html from the cache.
                     console.log('[Service Worker] Navigation fetch failed. Serving offline fallback from cache.');
-                    return caches.match('/index.html');
+                    return caches.match('./index.html');
                 })
         );
         return;
@@ -167,7 +167,7 @@ self.addEventListener('push', event => {
         icon: 'images/logo256.png',
         badge: 'images/logo64.png',
         vibrate: [200, 100, 200],
-        data: { url: '/' },
+        data: { url: './' },
         actions: [
             { action: 'open', title: 'Open Diary', icon: 'images/logo32.png' },
             { action: 'close', title: 'Close', icon: 'images/logo32.png' }
@@ -186,7 +186,7 @@ self.addEventListener('notificationclick', event => {
     
     if (event.action === 'open' || !event.action) {
         event.waitUntil(
-            clients.openWindow('/')
+            clients.openWindow('./')
         );
     }
 });
