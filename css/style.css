@@ -1814,123 +1814,72 @@ button:disabled {
 
 /* --- Mood Timeline Styles --- */
 .mood-timeline-entry {
-    margin-bottom: 14px;
-    padding: 14px;
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0.04) 50%, rgba(245, 158, 11, 0.08) 100%);
-    border-radius: 12px;
-    border: 1px solid rgba(245, 158, 11, 0.2);
-    border-left: 5px solid var(--accent-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.mood-timeline-entry::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.mood-timeline-entry:hover {
-    transform: translateX(3px) translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    border-color: rgba(245, 158, 11, 0.4);
-}
-
-.mood-timeline-entry:hover::before {
-    opacity: 1;
+    margin-bottom: 12px;
+    padding: 12px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.03));
+    border-radius: 10px;
+    border-left: 4px solid var(--accent-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .mood-timeline-entry label {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 12px;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    font-size: 0.9rem;
 }
 
 .mood-input-group {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 8px;
 }
 
 .mood-level-select,
 .mood-category-select,
 .mood-feeling-select {
     font-size: 0.85rem;
-    padding: 11px 10px;
+    padding: 10px 8px;
     text-align: center;
-    font-weight: 600;
-    border-radius: 10px;
-    border: 2px solid rgba(51, 65, 85, 0.3);
+    font-weight: 500;
+    border-radius: 8px;
+    border: 2px solid var(--tertiary-bg);
     background: var(--secondary-bg);
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .mood-level-select {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(245, 158, 11, 0.15) 100%);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.12));
     color: var(--accent-color);
-    font-weight: 800;
-    border: 2px solid rgba(245, 158, 11, 0.5);
-    font-size: 1rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 3px 8px rgba(245, 158, 11, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    font-weight: 700;
+    border-color: rgba(245, 158, 11, 0.4);
+    font-size: 0.95rem;
 }
 
-.mood-level-select:hover,
-.mood-level-select:focus {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(245, 158, 11, 0.25) 100%);
-    border-color: var(--accent-color);
-    transform: scale(1.05) translateY(-2px);
-    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-.mood-category-select:hover,
+.mood-level-select:focus,
 .mood-category-select:focus,
-.mood-feeling-select:hover,
 .mood-feeling-select:focus:not(:disabled) {
+    outline: none;
     border-color: var(--accent-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
-    background: linear-gradient(135deg, var(--secondary-bg), rgba(245, 158, 11, 0.05));
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
 }
 
 .mood-feeling-select:disabled {
-    opacity: 0.35;
+    opacity: 0.4;
     cursor: not-allowed;
-    background: rgba(100, 116, 139, 0.08);
-    border-color: rgba(100, 116, 139, 0.2);
-    box-shadow: none;
-}
-
-.mood-level-select:active,
-.mood-category-select:active,
-.mood-feeling-select:active:not(:disabled) {
-    transform: scale(0.98);
+    background: rgba(100, 116, 139, 0.1);
 }
 
 @media (max-width: 380px) {
     .mood-timeline-entry {
-        padding: 12px;
-        margin-bottom: 12px;
+        padding: 10px;
     }
     
     .mood-input-group {
-        gap: 8px;
+        gap: 6px;
     }
     
     .mood-level-select,
@@ -1941,7 +1890,7 @@ button:disabled {
     }
     
     .mood-level-select {
-        font-size: 0.9rem;
+        font-size: 0.88rem;
     }
 }
 
