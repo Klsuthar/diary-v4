@@ -681,13 +681,15 @@ document.addEventListener('DOMContentLoaded', () => {
         loadFormForDate(todayStr);
     }
 
-    function populateFormWithJson(jsonData) {
-        loadFormForDate(jsonData.date);
+    function populateFormWithJson(jsonData, skipLoadFormForDate = false) {
+        if (!skipLoadFormForDate) {
+            loadFormForDate(jsonData.date);
+        }
         setValue('date', jsonData.date);
         updateCurrentDateDisplay(jsonData.date);
 
-        if (jsonData.environment) { const envMap = { temperature_c: 'temperatureC', air_quality_index: 'airQualityIndex', humidity_percent: 'humidityPercent', uv_index: 'uvIndex', weather_condition: 'weatherCondition', environment_experience: 'environmentExperience' }; Object.keys(envMap).forEach(key => setValue(envMap[key], jsonData.environment[key])); setSelectorValuesFromData(jsonData.environment); }
-        if (jsonData.body_measurements) { const bodyMap = { weight_kg: 'weightKg', height_cm: 'heightCm', chest: 'chest', belly: 'belly' }; Object.keys(bodyMap).forEach(key => setValue(bodyMap[key], jsonData.body_measurements[key])); }
+        if (jsonData.environment) { const envMap = { temperature_c: 'temperatureC', air_quality_index: 'airQualityIndex', humidity_percent: 'humidityPercent', uv_index: 'uvIndex', weather_condition: 'weatherCondition', environment_experience: 'environmentExperience' }; Object.keys(envMap).forEach(key => { if (jsonData.environment[key] !== undefined && jsonData.environment[key] !== null) setValue(envMap[key], jsonData.environment[key]); }); setSelectorValuesFromData(jsonData.environment); }
+        if (jsonData.body_measurements) { const bodyMap = { weight_kg: 'weightKg', height_cm: 'heightCm', chest: 'chest', belly: 'belly' }; Object.keys(bodyMap).forEach(key => { if (jsonData.body_measurements[key] !== undefined && jsonData.body_measurements[key] !== null) setValue(bodyMap[key], jsonData.body_measurements[key]); }); }
         if (jsonData.health_and_fitness) { 
             const healthMap = { 
                 sleep_hours: 'sleepHours', 
@@ -1552,7 +1554,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 backupData.forEach(entry => {
                     if (entry && entry.date) {
-                        populateFormWithJson(entry);
+                        diaryForm.reset();
+                        populateFormWithJson(entry, true);
                         const currentFormObject = {};
                         diaryForm.querySelectorAll('input[id]:not([type="file"]), textarea[id], select[id]').forEach(element => {
                             if (element.id) {
@@ -1725,8 +1728,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 allEntriesFromFiles.forEach(entry => {
                     if (entry && entry.date) {
-                        // Use populateFormWithJson to load the data from the file
-                        populateFormWithJson(entry);
+                        diaryForm.reset();
+                        populateFormWithJson(entry, true);
 
                         const currentFormObject = {};
                         diaryForm.querySelectorAll('input[id]:not([type="file"]), textarea[id], select[id]').forEach(element => {
