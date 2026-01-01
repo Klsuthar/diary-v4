@@ -1834,11 +1834,34 @@ button:disabled {
 
 .mood-input-group {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 60px 1fr 1fr;
     gap: 8px;
 }
 
-.mood-level-select,
+.mood-level-scroll-wrapper {
+    height: 80px;
+}
+
+.mood-level-scroll {
+    height: 80px;
+    width: 60px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.08));
+    border: 2px solid rgba(245, 158, 11, 0.4);
+    border-radius: 8px;
+}
+
+.mood-level-scroll .scroll-selector-item {
+    color: var(--accent-color);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.mood-level-scroll .scroll-selector-item.active {
+    color: var(--accent-color);
+    font-weight: 800;
+    transform: scale(1.2);
+}
+
 .mood-category-select,
 .mood-feeling-select {
     font-size: 0.85rem;
@@ -1851,17 +1874,6 @@ button:disabled {
     cursor: pointer;
 }
 
-.mood-level-select {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.15));
-    color: var(--accent-color);
-    font-weight: 800;
-    border: 2px solid rgba(245, 158, 11, 0.5);
-    font-size: 1.05rem;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
-}
-
-.mood-level-select:focus,
 .mood-category-select:focus,
 .mood-feeling-select:focus:not(:disabled) {
     outline: none;
@@ -1882,17 +1894,22 @@ button:disabled {
     
     .mood-input-group {
         gap: 6px;
+        grid-template-columns: 50px 1fr 1fr;
     }
     
-    .mood-level-select,
+    .mood-level-scroll-wrapper {
+        height: 70px;
+    }
+    
+    .mood-level-scroll {
+        height: 70px;
+        width: 50px;
+    }
+    
     .mood-category-select,
     .mood-feeling-select {
         font-size: 0.78rem;
         padding: 9px 6px;
-    }
-    
-    .mood-level-select {
-        font-size: 0.88rem;
     }
 }
 
