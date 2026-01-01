@@ -588,30 +588,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         diaryForm.reset();
 
-        ['weightKg', 'heightCm', 'chest', 'belly', 'meditationStatus',
-            'meditationDurationMin', 'sleepHours', 'medicationsTaken', 'skincareRoutine', 'physicalSymptoms'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    if (id === 'weightKg') el.value = "72";
-                    else if (id === 'heightCm') el.value = "178";
-                    else if (id === 'chest') el.value = "90";
-                    else if (id === 'belly') el.value = "89";
-                    else if (id === 'meditationStatus') el.value = "Na";
-                    else if (id === 'meditationDurationMin') el.value = "0";
-                    else if (id === 'sleepHours') el.value = "8:00";
-                    else if (id === 'medicationsTaken') el.value = "Na";
-                    else if (id === 'skincareRoutine') el.value = "Na";
-                    else if (id === 'physicalSymptoms') el.value = "No";
-                    else el.value = '';
-                }
-            });
-        setValue('otherNoteStatus', 'No');
-        if (energyLevelSlider) energyLevelSlider.value = 5;
-        if (stressLevelSlider) stressLevelSlider.value = 5;
-        if (sleepQualitySlider) sleepQualitySlider.value = 5;
-
-        if (uvIndexSlider) uvIndexSlider.value = 9;
-
         const allSavedData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '{}');
         const formDataForDate = allSavedData[dateStr];
 
@@ -637,6 +613,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 showToast('Could not load saved data. It might be corrupted.', 'error');
             }
         } else {
+            ['weightKg', 'heightCm', 'chest', 'belly', 'meditationStatus',
+                'meditationDurationMin', 'sleepHours', 'medicationsTaken', 'skincareRoutine', 'physicalSymptoms'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        if (id === 'weightKg') el.value = "72";
+                        else if (id === 'heightCm') el.value = "178";
+                        else if (id === 'chest') el.value = "90";
+                        else if (id === 'belly') el.value = "89";
+                        else if (id === 'meditationStatus') el.value = "Na";
+                        else if (id === 'meditationDurationMin') el.value = "0";
+                        else if (id === 'sleepHours') el.value = "8:00";
+                        else if (id === 'medicationsTaken') el.value = "Na";
+                        else if (id === 'skincareRoutine') el.value = "Na";
+                        else if (id === 'physicalSymptoms') el.value = "No";
+                        else el.value = '';
+                    }
+                });
+            setValue('otherNoteStatus', 'No');
+            if (energyLevelSlider) energyLevelSlider.value = 5;
+            if (stressLevelSlider) stressLevelSlider.value = 5;
+            if (sleepQualitySlider) sleepQualitySlider.value = 5;
+            if (uvIndexSlider) uvIndexSlider.value = 9;
             setSelectorValuesFromData(null);
         }
 
