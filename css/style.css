@@ -1814,58 +1814,97 @@ button:disabled {
 
 /* --- Mood Timeline Styles --- */
 .mood-timeline-entry {
-    margin-bottom: 14px;
-    padding: 10px;
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), transparent);
-    border-radius: var(--border-radius-sm);
-    border-left: 3px solid var(--accent-color);
+    margin-bottom: 12px;
+    padding: 12px;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.02));
+    border-radius: 10px;
+    border-left: 4px solid var(--accent-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.mood-timeline-entry:hover {
+    transform: translateX(2px);
+    box-shadow: 0 3px 12px rgba(245, 158, 11, 0.15);
 }
 
 .mood-timeline-entry label {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 8px;
-    font-size: 0.85rem;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
 }
 
 .mood-input-group {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
+    gap: 8px;
 }
 
 .mood-level-select,
 .mood-category-select,
 .mood-feeling-select {
-    font-size: 0.8rem;
-    padding: 8px 6px;
+    font-size: 0.82rem;
+    padding: 10px 8px;
     text-align: center;
     font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .mood-level-select {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1));
     color: var(--accent-color);
-    font-weight: 600;
-    border-color: rgba(245, 158, 11, 0.3);
+    font-weight: 700;
+    border: 2px solid rgba(245, 158, 11, 0.4);
+    font-size: 0.9rem;
+}
+
+.mood-level-select:hover,
+.mood-level-select:focus {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(245, 158, 11, 0.15));
+    border-color: var(--accent-color);
+    transform: scale(1.02);
+}
+
+.mood-category-select:hover,
+.mood-category-select:focus,
+.mood-feeling-select:hover,
+.mood-feeling-select:focus:not(:disabled) {
+    border-color: var(--accent-color);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
 }
 
 .mood-feeling-select:disabled {
     opacity: 0.4;
     cursor: not-allowed;
+    background: rgba(100, 116, 139, 0.1);
 }
 
 @media (max-width: 380px) {
+    .mood-timeline-entry {
+        padding: 10px;
+    }
+    
     .mood-input-group {
-        gap: 5px;
+        gap: 6px;
     }
     
     .mood-level-select,
     .mood-category-select,
     .mood-feeling-select {
         font-size: 0.75rem;
-        padding: 7px 4px;
+        padding: 8px 5px;
+    }
+    
+    .mood-level-select {
+        font-size: 0.82rem;
     }
 }
 
