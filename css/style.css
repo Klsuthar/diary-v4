@@ -1814,8 +1814,8 @@ button:disabled {
 
 /* --- Mood Timeline Styles --- */
 .mood-timeline-entry {
-    margin-bottom: 16px;
-    padding: 12px;
+    margin-bottom: 14px;
+    padding: 10px;
     background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), transparent);
     border-radius: var(--border-radius-sm);
     border-left: 3px solid var(--accent-color);
@@ -1826,25 +1826,47 @@ button:disabled {
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 8px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .mood-input-group {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
 }
 
-.mood-level-input {
-    width: 70px;
-    flex-shrink: 0;
+.mood-level-select,
+.mood-category-select,
+.mood-feeling-select {
+    font-size: 0.8rem;
+    padding: 8px 6px;
     text-align: center;
-    font-weight: 600;
-    color: var(--accent-color);
+    font-weight: 500;
 }
 
-.mood-feeling-input {
-    flex: 1;
+.mood-level-select {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.05));
+    color: var(--accent-color);
+    font-weight: 600;
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.mood-feeling-select:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+@media (max-width: 380px) {
+    .mood-input-group {
+        gap: 5px;
+    }
+    
+    .mood-level-select,
+    .mood-category-select,
+    .mood-feeling-select {
+        font-size: 0.75rem;
+        padding: 7px 4px;
+    }
 }
 
 /* --- Media Queries for Responsiveness --- */

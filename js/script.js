@@ -350,6 +350,37 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function setMoodFeeling(timeOfDay, feeling) {
+        if (!feeling) return;
+        const moodData = {
+            positive_high_energy: ['happy', 'calm', 'peaceful', 'relaxed', 'content', 'motivated', 'energetic', 'confident', 'hopeful', 'satisfied'],
+            neutral_balanced: ['neutral', 'normal', 'stable', 'okay', 'composed', 'indifferent'],
+            low_energy_tired: ['tired', 'sleepy', 'exhausted', 'lazy', 'drained', 'dull'],
+            negative_heavy: ['stressed', 'anxious', 'irritated', 'frustrated', 'overwhelmed', 'sad', 'low', 'lonely', 'bored'],
+            cognitive_mental_states: ['focused', 'distracted', 'confused', 'overthinking', 'mentally_heavy', 'mentally_clear']
+        };
+        
+        let foundCategory = '';
+        for (const [category, moods] of Object.entries(moodData)) {
+            if (moods.includes(feeling)) {
+                foundCategory = category;
+                break;
+            }
+        }
+        
+        if (foundCategory) {
+            const categorySelect = document.getElementById(`${timeOfDay}MoodCategory`);
+            const feelingSelect = document.getElementById(`${timeOfDay}MoodFeeling`);
+            if (categorySelect && feelingSelect) {
+                categorySelect.value = foundCategory;
+                categorySelect.dispatchEvent(new Event('change'));
+                setTimeout(() => {
+                    feelingSelect.value = feeling;
+                }, 50);
+            }
+        }
+    }
+
     function calculateDaysSince(startDate, endDateStr) {
         if (!endDateStr) return null;
         const [year, month, day] = endDateStr.split('-').map(Number);
@@ -622,13 +653,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (jsonData.mental_and_emotional_health.mood_timeline) {
                 const mt = jsonData.mental_and_emotional_health.mood_timeline;
                 setValue('morningMoodLevel', mt.morning?.mood_level);
-                setValue('morningMoodFeeling', mt.morning?.mood_feeling);
+                setMoodFeeling('morning', mt.morning?.mood_feeling);
                 setValue('afternoonMoodLevel', mt.afternoon?.mood_level);
-                setValue('afternoonMoodFeeling', mt.afternoon?.mood_feeling);
+                setMoodFeeling('afternoon', mt.afternoon?.mood_feeling);
                 setValue('eveningMoodLevel', mt.evening?.mood_level);
-                setValue('eveningMoodFeeling', mt.evening?.mood_feeling);
+                setMoodFeeling('evening', mt.evening?.mood_feeling);
                 setValue('nightMoodLevel', mt.night?.mood_level);
-                setValue('nightMoodFeeling', mt.night?.mood_feeling);
+                setMoodFeeling('night', mt.night?.mood_feeling);
             }
             setValue('meditationStatus', jsonData.mental_and_emotional_health.meditation_status); 
             setValue('meditationDurationMin', jsonData.mental_and_emotional_health.meditation_duration_min); 
@@ -2117,6 +2148,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Initial Application Setup ---
+    
+    // --- Mood Timeline Cascading Dropdowns ---
+    const moodData = {
+        positive_high_energy: ['happy', 'calm', 'peaceful', 'relaxed', 'content', 'motivated', 'energetic', 'confident', 'hopeful', 'satisfied'],
+        neutral_balanced: ['neutral', 'normal', 'stable', 'okay', 'composed', 'indifferent'],
+        low_energy_tired: ['tired', 'sleepy', 'exhausted', 'lazy', 'drained', 'dull'],
+        negative_heavy: ['stressed', 'anxious', 'irritated', 'frustrated', 'overwhelmed', 'sad', 'low', 'lonely', 'bored'],
+        cognitive_mental_states: ['focused', 'distracted', 'confused', 'overthinking', 'mentally_heavy', 'mentally_clear']
+    };
+
+    function setupMoodDropdown(categoryId, feelingId) {
+        const categorySelect = document.getElementById(categoryId);
+        const feelingSelect = document.getElementById(feelingId);
+        
+        if (!categorySelect || !feelingSelect) return;
+        
+        categorySelect.addEventListener('change', function() {
+            const category = this.value;
+            feelingSelect.innerHTML = '<option value="">Select Mood</option>';
+            
+            if (category && moodData[category]) {
+                feelingSelect.disabled = false;
+                moodData[category].forEach(mood => {
+                    const option = document.createElement('option');
+                    option.value = mood;
+                    option.textContent = mood.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    feelingSelect.appendChild(option);
+                });
+            } else {
+                feelingSelect.disabled = true;
+            }
+        });
+    }
+
+    setupMoodDropdown('morningMoodCategory', 'morningMoodFeeling');
+    setupMoodDropdown('afternoonMoodCategory', 'afternoonMoodFeeling');
+    setupMoodDropdown('eveningMoodCategory', 'eveningMoodFeeling');
+    setupMoodDropdown('nightMoodCategory', 'nightMoodFeeling');
+    
     checkPasswordProtection();
 
     // --- Enhanced PWA Features ---
