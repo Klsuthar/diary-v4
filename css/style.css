@@ -1683,6 +1683,17 @@ button:disabled {
     margin-bottom: 15px;
 }
 
+.two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.two-column-grid .scroll-selector-container {
+    margin-bottom: 0;
+}
+
 .scroll-selector-wrapper {
     display: flex;
     align-items: center;
