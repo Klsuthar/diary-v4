@@ -688,7 +688,18 @@ document.addEventListener('DOMContentLoaded', () => {
         setValue('date', jsonData.date);
         updateCurrentDateDisplay(jsonData.date);
 
-        if (jsonData.environment) { const envMap = { temperature_c: 'temperatureC', air_quality_index: 'airQualityIndex', humidity_percent: 'humidityPercent', uv_index: 'uvIndex', weather_condition: 'weatherCondition', environment_experience: 'environmentExperience' }; Object.keys(envMap).forEach(key => { if (jsonData.environment[key] !== undefined && jsonData.environment[key] !== null) setValue(envMap[key], jsonData.environment[key]); }); setSelectorValuesFromData(jsonData.environment); }
+        if (jsonData.environment) { 
+            const envMap = { temperature_c: 'temperatureC', air_quality_index: 'airQualityIndex', humidity_percent: 'humidityPercent', uv_index: 'uvIndex', weather_condition: 'weatherCondition', environment_experience: 'environmentExperience' }; 
+            Object.keys(envMap).forEach(key => { 
+                if (jsonData.environment[key] !== undefined && jsonData.environment[key] !== null) setValue(envMap[key], jsonData.environment[key]); 
+            }); 
+            const selectorData = {
+                temperatureC: jsonData.environment.temperature_c,
+                airQualityIndex: jsonData.environment.air_quality_index,
+                humidityPercent: jsonData.environment.humidity_percent
+            };
+            setSelectorValuesFromData(selectorData); 
+        }
         if (jsonData.body_measurements) { const bodyMap = { weight_kg: 'weightKg', height_cm: 'heightCm', chest: 'chest', belly: 'belly' }; Object.keys(bodyMap).forEach(key => { if (jsonData.body_measurements[key] !== undefined && jsonData.body_measurements[key] !== null) setValue(bodyMap[key], jsonData.body_measurements[key]); }); }
         if (jsonData.health_and_fitness) { 
             const healthMap = { 
