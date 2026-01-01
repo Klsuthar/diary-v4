@@ -1852,11 +1852,13 @@ button:disabled {
 }
 
 .mood-level-select {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.12));
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(245, 158, 11, 0.15));
     color: var(--accent-color);
-    font-weight: 700;
-    border-color: rgba(245, 158, 11, 0.4);
-    font-size: 0.95rem;
+    font-weight: 800;
+    border: 2px solid rgba(245, 158, 11, 0.5);
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
 }
 
 .mood-level-select:focus,
