@@ -1814,12 +1814,18 @@ button:disabled {
 
 /* --- Mood Timeline Styles --- */
 .mood-timeline-entry {
-    margin-bottom: 12px;
-    padding: 12px;
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.03));
-    border-radius: 10px;
-    border-left: 4px solid var(--accent-color);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    margin-bottom: 14px;
+    padding: 14px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(99, 102, 241, 0.08));
+    border-radius: 12px;
+    border-left: 4px solid #3b82f6;
+    box-shadow: 0 3px 10px rgba(59, 130, 246, 0.15);
+    transition: all 0.2s ease;
+}
+
+.mood-timeline-entry:hover {
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.22);
+    transform: translateY(-1px);
 }
 
 .mood-timeline-entry label {
@@ -1827,89 +1833,103 @@ button:disabled {
     align-items: center;
     gap: 8px;
     font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 10px;
-    font-size: 0.9rem;
+    color: #60a5fa;
+    margin-bottom: 12px;
+    font-size: 0.92rem;
 }
 
 .mood-input-group {
     display: grid;
-    grid-template-columns: 60px 1fr 1fr;
-    gap: 8px;
+    grid-template-columns: 70px 1fr 1fr;
+    gap: 10px;
+    align-items: center;
 }
 
 .mood-level-scroll-wrapper {
-    height: 80px;
+    height: 100px;
 }
 
 .mood-level-scroll {
-    height: 80px;
-    width: 60px;
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.08));
-    border: 2px solid rgba(245, 158, 11, 0.4);
-    border-radius: 8px;
+    height: 100px;
+    width: 70px;
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.25), rgba(99, 102, 241, 0.18));
+    border: 2px solid rgba(59, 130, 246, 0.5);
+    border-radius: 12px;
+    box-shadow: inset 0 2px 8px rgba(59, 130, 246, 0.2);
 }
 
 .mood-level-scroll .scroll-selector-item {
-    color: var(--accent-color);
-    font-weight: 700;
-    font-size: 1.1rem;
+    color: #93c5fd;
+    font-weight: 600;
+    font-size: 1.3rem;
 }
 
 .mood-level-scroll .scroll-selector-item.active {
-    color: var(--accent-color);
+    color: #60a5fa;
     font-weight: 800;
-    transform: scale(1.2);
+    transform: scale(1.3);
+    text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
 }
 
 .mood-category-select,
 .mood-feeling-select {
-    font-size: 0.85rem;
-    padding: 10px 8px;
+    font-size: 0.88rem;
+    padding: 11px 10px;
     text-align: center;
     font-weight: 500;
-    border-radius: 8px;
-    border: 2px solid var(--tertiary-bg);
-    background: var(--secondary-bg);
+    border-radius: 10px;
+    border: 2px solid rgba(59, 130, 246, 0.3);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(30, 41, 59, 0.85));
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mood-category-select:hover,
+.mood-feeling-select:hover:not(:disabled) {
+    border-color: rgba(59, 130, 246, 0.5);
+    background: linear-gradient(135deg, rgba(30, 41, 59, 1), rgba(30, 41, 59, 0.9));
 }
 
 .mood-category-select:focus,
 .mood-feeling-select:focus:not(:disabled) {
     outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .mood-feeling-select:disabled {
-    opacity: 0.4;
+    opacity: 0.35;
     cursor: not-allowed;
-    background: rgba(100, 116, 139, 0.1);
+    background: rgba(51, 65, 85, 0.4);
 }
 
 @media (max-width: 380px) {
     .mood-timeline-entry {
-        padding: 10px;
+        padding: 12px;
     }
     
     .mood-input-group {
-        gap: 6px;
-        grid-template-columns: 50px 1fr 1fr;
+        gap: 8px;
+        grid-template-columns: 60px 1fr 1fr;
     }
     
     .mood-level-scroll-wrapper {
-        height: 70px;
+        height: 85px;
     }
     
     .mood-level-scroll {
-        height: 70px;
-        width: 50px;
+        height: 85px;
+        width: 60px;
+    }
+    
+    .mood-level-scroll .scroll-selector-item {
+        font-size: 1.15rem;
     }
     
     .mood-category-select,
     .mood-feeling-select {
-        font-size: 0.78rem;
-        padding: 9px 6px;
+        font-size: 0.8rem;
+        padding: 10px 7px;
     }
 }
 
