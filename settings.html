@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Settings - My Personal Diary</title>
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <meta name="theme-color" content="#1e293b">
+
+    <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="images/logo.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logo32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo16.png">
+    <link rel="apple-touch-icon" href="images/logo256.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/settings.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="top-bar">
+            <div class="settings-header">
+                <button type="button" id="backButton" class="back-btn" aria-label="Back to diary">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="settings-title">Settings</h1>
+            </div>
+        </header>
+
+        <main class="settings-content">
+            <div class="settings-section">
+                <h2><i class="fas fa-palette"></i> Appearance</h2>
+                <div class="setting-item">
+                    <label for="themeSelect">Theme</label>
+                    <select id="themeSelect">
+                        <option value="dark">Dark</option>
+                        <option value="light">Light</option>
+                        <option value="black">Black (Night)</option>
+                        <option value="auto">Auto</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label for="fontSizeRange">Font Size</label>
+                    <input type="range" id="fontSizeRange" min="12" max="20" value="16" step="1">
+                    <span id="fontSizeValue">16px</span>
+                </div>
+                <div class="setting-item">
+                    <label for="splashDurationRange">Splash Screen Duration (seconds)</label>
+                    <input type="range" id="splashDurationRange" min="0" max="10" value="4" step="1">
+                    <span id="splashDurationValue">4s</span>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2><i class="fas fa-database"></i> Data & Storage</h2>
+                <div class="setting-item">
+                    <label>Auto-save</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="autoSaveToggle" checked>
+                        <span class="slider"></span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label for="backupFrequency">Backup Frequency</label>
+                    <select id="backupFrequency">
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="never">Never</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <button type="button" id="clearAllDataBtn" class="danger-btn">
+                        <i class="fas fa-trash-alt"></i> Clear All Data
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2><i class="fas fa-bell"></i> Notifications</h2>
+                <div class="setting-item">
+                    <label>Enable Notifications</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="notificationsToggle">
+                        <span class="slider"></span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <button type="button" id="addNotificationBtn" class="secondary-btn">
+                        <i class="fas fa-plus"></i> Add Reminder
+                    </button>
+                </div>
+                <div id="notificationsList"></div>
+            </div>
+
+            <div class="settings-section">
+                <h2><i class="fas fa-shield-alt"></i> Privacy & Security</h2>
+                <div class="setting-item">
+                    <label>Password Protection</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="passwordToggle">
+                        <span class="slider"></span>
+                    </div>
+                </div>
+                <div class="setting-item" id="authTypeSection" style="display: none;">
+                    <label for="authType">Authentication Type</label>
+                    <select id="authType">
+                        <option value="password">Password</option>
+                        <option value="pattern">Pattern Lock</option>
+                    </select>
+                </div>
+                <div class="setting-item" id="passwordSection" style="display: none;">
+                    <label for="passwordInput">Set Password</label>
+                    <input type="password" id="passwordInput" placeholder="Enter password">
+                </div>
+                <div class="setting-item" id="patternSection" style="display: none;">
+                    <label>Set Pattern Lock</label>
+                    <div id="patternGrid"></div>
+                    <button type="button" id="clearPatternBtn" class="btn-small secondary-btn">
+                        <i class="fas fa-undo"></i> Clear Pattern
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2><i class="fas fa-info-circle"></i> About</h2>
+                <div class="setting-item">
+                    <span class="setting-label">Version</span>
+                    <span class="setting-value">1.1.0</span>
+                </div>
+                <div class="setting-item">
+                    <button type="button" id="aboutBtn" class="secondary-btn">
+                        <i class="fas fa-heart"></i> About This App
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/settings.js"></script>
+</body>
+
+</html>

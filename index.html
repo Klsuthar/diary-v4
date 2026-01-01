@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>My Personal Diary</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e293b">
+
+    <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="images/logo.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logo32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo16.png">
+    <link rel="apple-touch-icon" href="images/logo256.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/logo256.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/logo256.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/logo256.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="images/logo256.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/logo256.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="images/logo64.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/logo64.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="images/logo64.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="images/logo64.png"> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="My Diary">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="My Personal Diary">
+    <meta name="msapplication-TileColor" content="#1e293b">
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="mask-icon" href="images/logo.svg" color="#1e293b">
+</head>
+
+<body>
+    <!-- Splash Screen -->
+    <div id="splashScreen" class="splash-screen">
+        <div class="splash-bg-particles"></div>
+        <div class="splash-content">
+            <div class="splash-logo">
+                <div class="logo-ring">
+                    <div class="logo-ring-inner">
+                        <img src="images/logo256.png" alt="My Personal Diary" class="splash-logo-img">
+                    </div>
+                </div>
+                <h1 class="splash-title">My Personal Diary</h1>
+                <p class="splash-subtitle">Capture Life's Moments</p>
+            </div>
+            <div class="splash-quote-container">
+                <div class="quote-icon">
+                    <i class="fas fa-quote-left"></i>
+                </div>
+                <p id="splashQuote" class="splash-quote"></p>
+                <div class="quote-icon quote-right">
+                    <i class="fas fa-quote-right"></i>
+                </div>
+            </div>
+            <div class="splash-loading">
+                <div class="loading-progress">
+                    <div class="progress-bar"></div>
+                </div>
+                <p class="loading-text">Loading your digital sanctuary...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <header class="top-bar">
+            <div class="date-controls">
+                <button type="button" id="dateDecrement" class="date-control-btn" aria-label="Previous day"><i
+                        class="fas fa-chevron-left"></i></button>
+                <span id="currentDateDisplay">Loading Date... <i
+                        class="fas fa-calendar-alt date-display-icon"></i></span>
+                <input type="date" id="date" name="date" required>
+                <button type="button" id="dateIncrement" class="date-control-btn" aria-label="Next day"><i
+                        class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="top-actions">
+                <button type="submit" form="diaryForm" id="downloadButton" class="top-action-btn"
+                    aria-label="Download Diary" title="Download Diary (Export JSON)">
+                    <i class="fas fa-file-arrow-down"></i>
+                </button>
+                <button type="button" id="saveFormButton" class="top-action-btn" aria-label="Save Form"
+                    title="Save Form Data Locally">
+                    <i class="fas fa-save"></i>
+                </button>
+
+                <!-- 3-Dot Menu -->
+                <div class="dropdown-container">
+                    <button type="button" id="menuButton" class="top-action-btn" aria-label="More options" title="More options">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div id="dropdownMenu" class="dropdown-content" style="display:none;">
+                        <button type="button" id="shareEntryButton" class="dropdown-item">
+                            <i class="fas fa-share-alt"></i> Share Current Entry
+                        </button>
+                        <button type="button" id="menuImportButton" class="dropdown-item">
+                            <i class="fas fa-file-import"></i> Import JSON
+                        </button>
+                        <button type="button" id="menuClearFormButton" class="dropdown-item">
+                            <i class="fas fa-trash-alt"></i> Clear Form
+                        </button>
+                        <button type="button" id="createBackupButton" class="dropdown-item">
+                            <i class="fas fa-download"></i> Create Backup
+                        </button>
+                        <button type="button" id="importBackupButton" class="dropdown-item">
+                            <i class="fas fa-upload"></i> Import Backup
+                        </button>
+                        <button type="button" id="hardRefreshButton" class="dropdown-item">
+                            <i class="fas fa-sync-alt"></i> Hard Refresh
+                        </button>
+                        <button type="button" id="settingsButton" class="dropdown-item">
+                            <i class="fas fa-cog"></i> Settings
+                        </button>
+                    </div>
+                </div>
+                <input type="file" id="jsonFile" accept=".json" style="display:none;" multiple>
+                <input type="file" id="backupFile" accept=".json" style="display:none;">
+
+
+                <!-- Multi-select controls (remain visible when multi-select mode is active) -->
+                <span id="multiSelectCount" class="multi-select-info" style="display:none;">0 selected</span>
+                <button type="button" id="exportSelectedButton" class="top-action-btn" aria-label="Export Selected" title="Export Selected Entries" style="display:none;">
+                    <i class="fas fa-file-export"></i>
+                </button>
+                <button type="button" id="deleteSelectedButton" class="top-action-btn" aria-label="Delete Selected" title="Delete Selected Entries" style="display:none;">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <button type="button" id="cancelMultiSelectButton" class="top-action-btn" aria-label="Cancel Selection" title="Cancel Multi-Selection" style="display:none;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </header>
+
+        <form id="diaryForm">
+            <div id="tabViewPort">
+                <div id="tabPanelsSlider">
+                    <div id="tab-basic" class="tab-panel active">
+                        <fieldset>
+                            <legend>
+                                <i class="fas fa-cloud-sun icon-legend"></i> Environment
+                                <button type="button" id="importEnvironmentBtn" class="import-last-day-btn" title="Import from last day">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </legend>
+                            <div class="scroll-selector-container">
+                                <label for="temperatureMin">Temperature Range (°C):</label>
+                                <div class="scroll-selector-wrapper">
+                                    <div class="scroll-selector" id="temperatureMinSelector"></div>
+                                    <span class="temp-separator">-</span>
+                                    <div class="scroll-selector" id="temperatureMaxSelector"></div>
+                                </div>
+                                <input type="hidden" id="temperatureC" name="temperatureC">
+                            </div>
+                            <div class="scroll-selector-container">
+                                <label for="airQualityIndex">Air Quality Index:</label>
+                                <div class="scroll-selector-wrapper">
+                                    <div class="scroll-selector" id="airQualityIndexSelector"></div>
+                                </div>
+                                <input type="hidden" id="airQualityIndex" name="airQualityIndex">
+                            </div>
+                            <div class="scroll-selector-container">
+                                <label for="humidityPercent">Humidity (%):</label>
+                                <div class="scroll-selector-wrapper">
+                                    <div class="scroll-selector" id="humidityPercentSelector"></div>
+                                </div>
+                                <input type="hidden" id="humidityPercent" name="humidityPercent">
+                            </div>
+                            <div class="slider-container"> <label for="uvIndex">UV Index: <span id="uvIndexValue">9</span></label>
+                                <input type="range" id="uvIndex" name="uvIndex" min="1" max="12" value="9" step="1" inputmode="none">
+                            </div>
+                            <div> <label for="weatherCondition">Weather Condition:</label> <input type="text"
+                                    id="weatherCondition" name="weatherCondition" list="weatherConditionsList"
+                                    placeholder="e.g., Sunny, Cloudy"> <datalist id="weatherConditionsList">
+                                    <option value="Sunny"></option>
+                                    <option value="Partly Sunny"></option>
+                                    <option value="Rainy"></option>
+                                    <option value="Drizzle"></option>
+                                    <option value="Cloudy"></option>
+                                    <option value="Foggy"></option>
+                                    <option value="Cold"></option>
+                                    <option value="Hot"></option>
+                                    <option value="Windy"></option>
+                                    <option value="Snowy"></option>
+                                </datalist> </div>
+                            <div> <label for="environmentExperience">Environment Experience:</label> <input type="text"
+                                    id="environmentExperience" name="environmentExperience" list="environmentExperienceList"
+                                    placeholder="e.g., Pleasant breeze, Too humid, Perfect weather"> <datalist id="environmentExperienceList">
+                                    <option value="Pleasant and comfortable"></option>
+                                    <option value="Too hot and humid"></option>
+                                    <option value="Cool and refreshing"></option>
+                                    <option value="Perfect weather"></option>
+                                    <option value="Stuffy and uncomfortable"></option>
+                                    <option value="Fresh and energizing"></option>
+                                    <option value="Gloomy and depressing"></option>
+                                    <option value="Warm and cozy"></option>
+                                    <option value="Chilly but nice"></option>
+                                    <option value="Dry and dusty"></option>
+                                </datalist> </div>
+                        </fieldset>
+                    </div>
+
+                    <div id="tab-body" class="tab-panel">
+                        <fieldset>
+                            <legend><i class="fas fa-ruler-combined icon-legend"></i> Body Measurements</legend>
+                            <div> <label for="weightKg">Weight (kg):</label> <input type="number" id="weightKg"
+                                    name="weightKg" step="0.1"> </div>
+                            <div> <label for="heightCm">Height (cm):</label> <input type="number" id="heightCm"
+                                    name="heightCm"> </div>
+                            <div> <label for="chest">Chest (cm):</label> <input type="number" id="chest" name="chest">
+                            </div>
+                            <div> <label for="belly">Belly (cm):</label> <input type="number" id="belly" name="belly">
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend><i class="fas fa-dumbbell icon-legend"></i> Health & Fitness</legend>
+                            <div> <label for="sleepHours">Sleep (hours):</label> <input type="text" id="sleepHours"
+                                    name="sleepHours" placeholder="e.g., 7:30"> </div>
+                            <div class="slider-container"> <label for="sleepQuality">Sleep Quality: <span
+                                        id="sleepQualityValue">5</span></label> <input type="range" id="sleepQuality"
+                                    name="sleepQuality" min="0" max="10" value="5" step="1" inputmode="none"> </div>
+                            <div> <label for="sleepQualityDescription">Sleep Quality Description:</label> <input type="text"
+                                    id="sleepQualityDescription" name="sleepQualityDescription" list="sleepQualityDescriptionSuggestions"
+                                    placeholder="e.g., Deep and restful, Light sleep, Interrupted"> <datalist id="sleepQualityDescriptionSuggestions">
+                                    <option value="Deep and restful"></option>
+                                    <option value="Light sleep"></option>
+                                    <option value="Interrupted sleep"></option>
+                                    <option value="Restless night"></option>
+                                    <option value="Peaceful sleep"></option>
+                                    <option value="Woke up multiple times"></option>
+                                    <option value="Difficulty falling asleep"></option>
+                                    <option value="Refreshing sleep"></option>
+                                    <option value="Tossed and turned"></option>
+                                    <option value="Slept like a baby"></option>
+                                </datalist> </div>
+                            <div> <label for="stepsCount">Steps Count:</label> <input type="number" id="stepsCount"
+                                    name="stepsCount" placeholder="e.g., 8500"> </div>
+                            <div> <label for="stepsDistanceKm">Steps Distance (km):</label> <input type="text"
+                                    id="stepsDistanceKm" name="stepsDistanceKm" placeholder="e.g., 6.8">
+                            </div>
+                            <div> <label for="kilocalorie">Kilocalories Burned:</label> <input type="number"
+                                    id="kilocalorie" name="kilocalorie" placeholder="e.g., 2200"> </div>
+                            <div> <label for="waterIntakeLiters">Water Intake (liters):</label> <input type="text"
+                                    id="waterIntakeLiters" name="waterIntakeLiters" placeholder="e.g., 2.5">
+                            </div>
+                            <div> <label for="medicationsTaken">Medications Taken:</label> <input type="text"
+                                    id="medicationsTaken" name="medicationsTaken"
+                                    placeholder="e.g., Vitamin D, Omega 3"> </div>
+                            <div> <label for="physicalSymptoms">Physical Symptoms:</label> <input type="text"
+                                    id="physicalSymptoms" name="physicalSymptoms" placeholder="e.g., Headache, None">
+                            </div>
+                            <div class="slider-container"> <label for="energyLevel">Energy Level: <span
+                                        id="energyLevelValue">5</span></label> <input type="range" id="energyLevel"
+                                    name="energyLevel" min="0" max="10" value="5" step="1" inputmode="none"> </div>
+                            <div class="slider-container"> <label for="stressLevel">Stress Level: <span
+                                        id="stressLevelValue">5</span></label> <input type="range" id="stressLevel"
+                                    name="stressLevel" min="0" max="10" value="5" step="1" inputmode="none"> </div>
+                            <div> <label for="energyStressReason">Energy/Stress Reason:</label> <textarea id="energyStressReason" name="energyStressReason" rows="2" placeholder="e.g., Work pressure, Good workout"></textarea>
+                                <div id="energyStressReasonCounts">Words: 0, Chars: 0</div>
+                            </div>
+                            <div style=" height: 20px; background-color: transparent;"></div>
+                        </fieldset>
+                    </div>
+
+                    <div id="tab-mental" class="tab-panel">
+                        <fieldset>
+                            <legend><i class="fas fa-brain icon-legend"></i> Mental & Emotional Health</legend>
+                            <div> <label for="mentalState">Mental State (comma-separated):</label> <input type="text"
+                                    id="mentalState" name="mentalState" list="mentalStateSuggestions"
+                                    placeholder="e.g., Focused, Anxious"> <datalist id="mentalStateSuggestions">
+                                    <option value="Happy"></option>
+                                    <option value="Sad"></option>
+                                    <option value="Anxious"></option>
+                                    <option value="Angry"></option>
+                                    <option value="Frustrated"></option>
+                                    <option value="Excited"></option>
+                                    <option value="Tired"></option>
+                                    <option value="Focused"></option>
+                                    <option value="Peaceful"></option>
+                                    <option value="Lonely"></option>
+                                    <option value="Bored"></option>
+                                    <option value="Nervous"></option>
+                                    <option value="Motivated"></option>
+                                    <option value="Stressed"></option>
+                                </datalist> </div>
+                            <div> <label for="mentalStateReason">Mental State Reason:</label> <input type="text"
+                                    id="mentalStateReason" name="mentalStateReason"
+                                    placeholder="e.g., Work pressure, Good news, Family time"> </div>
+                            <div> <label for="meditationStatus">Meditation Status:</label> <input type="text"
+                                    id="meditationStatus" name="meditationStatus"
+                                    placeholder="e.g., Completed, Skipped"> </div>
+                            <div> <label for="meditationDurationMin">Meditation Duration (min):</label> <input
+                                    type="number" id="meditationDurationMin" name="meditationDurationMin"
+                                    placeholder="e.g., 15"> </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>
+                                <i class="fas fa-spa icon-legend"></i> Personal Care
+                                <button type="button" id="importPersonalCareBtn" class="import-last-day-btn" title="Import from last day">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </legend>
+                            <div> <label for="faceProductName">Face Product Name:</label> <input type="text"
+                                    id="faceProductName" name="faceProductName" list="faceProductNameSuggestions"
+                                    placeholder="e.g., Hydra Boost Gel"> <datalist
+                                    id="faceProductNameSuggestions"></datalist> </div>
+                            <div> <label for="faceProductBrand">Face Product Brand:</label> <input type="text"
+                                    id="faceProductBrand" name="faceProductBrand" list="faceProductBrandSuggestions"
+                                    placeholder="e.g., Neutrogena"> <datalist
+                                    id="faceProductBrandSuggestions"></datalist> </div>
+                            <div> <label for="hairProductName">Hair Product Name:</label> <input type="text"
+                                    id="hairProductName" name="hairProductName" list="hairProductNameSuggestions"
+                                    placeholder="e.g., Smooth & Silky Shampoo"> <datalist
+                                    id="hairProductNameSuggestions"></datalist> </div>
+                            <div> <label for="hairProductBrand">Hair Product Brand:</label> <input type="text"
+                                    id="hairProductBrand" name="hairProductBrand" list="hairProductBrandSuggestions"
+                                    placeholder="e.g., Dove"> <datalist id="hairProductBrandSuggestions"></datalist>
+                            </div>
+                            <div> <label for="hairOil">Hair Oil:</label> <input type="text" id="hairOil" name="hairOil"
+                                    list="hairOilSuggestions" placeholder="e.g., Coconut Oil"> <datalist
+                                    id="hairOilSuggestions"></datalist> </div>
+                            <div> <label for="skincareRoutine">Skincare Routine:</label> <input type="text"
+                                    id="skincareRoutine" name="skincareRoutine" list="skincareRoutineSuggestions"
+                                    placeholder="e.g., Cleanser → Toner → Serum"> <datalist
+                                    id="skincareRoutineSuggestions"></datalist> </div>
+                            <div style=" height: 20px; background-color: transparent;"></div>
+                        </fieldset>
+                    </div>
+
+                    <div id="tab-diet" class="tab-panel">
+                        <fieldset>
+                            <legend><i class="fas fa-utensils icon-legend"></i> Diet & Nutrition</legend>
+                            <div> <label for="breakfast">Breakfast:</label> <input type="text" id="breakfast"
+                                    name="breakfast" list="breakfastSuggestions" placeholder="e.g., Oats with fruit">
+                                <datalist id="breakfastSuggestions"></datalist>
+                            </div>
+                            <div> <label for="lunch">Lunch:</label> <input type="text" id="lunch" name="lunch"
+                                    list="lunchSuggestions" placeholder="e.g., Grilled chicken salad"> <datalist
+                                    id="lunchSuggestions"></datalist> </div>
+                            <div> <label for="dinner">Dinner:</label> <input type="text" id="dinner" name="dinner"
+                                    list="dinnerSuggestions" placeholder="e.g., Lentil soup"> <datalist
+                                    id="dinnerSuggestions"></datalist> </div>
+                            <div> <label for="additionalItems">Additional Items:</label> <input type="text" id="additionalItems"
+                                    name="additionalItems" list="additionalItemsSuggestions" placeholder="e.g., Snacks, Drinks">
+                                <datalist id="additionalItemsSuggestions"></datalist>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend><i class="fas fa-tasks icon-legend"></i> Activities & Productivity</legend>
+                            <div> <label for="tasksTodayEnglish">Tasks Today (English):</label> <input type="text"
+                                    id="tasksTodayEnglish" name="tasksTodayEnglish"
+                                    placeholder="e.g., Wrote blog post, emails"> </div>
+                            <div> <label for="travelDestination">Travel Destination:</label> <input type="text"
+                                    id="travelDestination" name="travelDestination" placeholder="e.g., Office, Home">
+                            </div>
+                            <div> <label for="phoneScreenOnHr">Phone Screen On (hr):</label> <input type="text"
+                                    id="phoneScreenOnHr" name="phoneScreenOnHr" placeholder="e.g., 3:30">
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend><i class="fas fa-mobile-alt icon-legend"></i> Most Used Apps (Top 5)</legend>
+                            <div class="most-used-apps-container">
+                                <div class="app-entry">
+                                    <div class="app-rank">1</div>
+                                    <input type="text" id="app1Name" name="app1Name" placeholder="App name" class="app-name-input" list="appNameSuggestions">
+                                    <input type="text" id="app1Time" name="app1Time" placeholder="2h 30m" class="app-time-input">
+                                </div>
+                                <div class="app-entry">
+                                    <div class="app-rank">2</div>
+                                    <input type="text" id="app2Name" name="app2Name" placeholder="App name" class="app-name-input" list="appNameSuggestions">
+                                    <input type="text" id="app2Time" name="app2Time" placeholder="1h 45m" class="app-time-input">
+                                </div>
+                                <div class="app-entry">
+                                    <div class="app-rank">3</div>
+                                    <input type="text" id="app3Name" name="app3Name" placeholder="App name" class="app-name-input" list="appNameSuggestions">
+                                    <input type="text" id="app3Time" name="app3Time" placeholder="1h 20m" class="app-time-input">
+                                </div>
+                                <div class="app-entry">
+                                    <div class="app-rank">4</div>
+                                    <input type="text" id="app4Name" name="app4Name" placeholder="App name" class="app-name-input" list="appNameSuggestions">
+                                    <input type="text" id="app4Time" name="app4Time" placeholder="45m" class="app-time-input">
+                                </div>
+                                <div class="app-entry">
+                                    <div class="app-rank">5</div>
+                                    <input type="text" id="app5Name" name="app5Name" placeholder="App name" class="app-name-input" list="appNameSuggestions">
+                                    <input type="text" id="app5Time" name="app5Time" placeholder="30m" class="app-time-input">
+                                </div>
+                                <datalist id="appNameSuggestions"></datalist>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div id="tab-summary" class="tab-panel">
+                        <fieldset>
+                            <legend><i class="fas fa-sticky-note icon-legend"></i> Additional Notes</legend>
+                            <div> <label for="keyEvents">Key Events:</label> <input type="text" id="keyEvents"
+                                    name="keyEvents" placeholder="e.g., Client meeting, Birthday"> </div>
+                            <div>
+                                <label for="otherNoteStatus">Other:</label>
+                                <input type="text" id="otherNoteStatus" name="otherNoteStatus" list="otherNoteSuggestions" value="No">
+                                <datalist id="otherNoteSuggestions">
+                                    <option value="Yes"></option>
+                                    <option value="No"></option>
+                                </datalist>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend><i class="fas fa-book-open icon-legend"></i> Daily Activity Summary</legend>
+                            <div> <label for="dailyActivitySummary">Summary:</label> <textarea id="dailyActivitySummary"
+                                    name="dailyActivitySummary" rows="14"
+                                    placeholder="A brief summary of your day..."></textarea>
+                                <div id="summaryCounts">Words: 0, Chars: 0</div>
+                            </div>
+                            <div> <label for="overallDayExperience">Overall Day Experience:</label> <textarea id="overallDayExperience" name="overallDayExperience" rows="5" placeholder="How was your day overall?"></textarea>
+                                <div id="overallCounts">Words: 0, Chars: 0</div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div id="tab-history" class="tab-panel">
+                        <div id="historyListContainer">
+                            <p class="no-history-message" style="display:none; text-align:center; margin-top: 20px; color: var(--text-secondary);">
+                                No diary entries found.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+        <nav class="bottom-nav">
+            <button class="bottom-nav-button active" data-tab-target="tab-basic" aria-label="Basic Info"
+                title="Basic & Environment">
+                <i class="fas fa-info-circle"></i>
+                <span>Basic</span>
+            </button>
+            <button class="bottom-nav-button" data-tab-target="tab-body" aria-label="Body & Health"
+                title="Body & Health">
+                <i class="fas fa-heartbeat"></i>
+                <span>Body</span>
+            </button>
+            <button class="bottom-nav-button" data-tab-target="tab-mental" aria-label="Mental Care"
+                title="Mental & Personal Care">
+                <i class="fas fa-brain"></i>
+                <span>Mental</span>
+            </button>
+            <button class="bottom-nav-button" data-tab-target="tab-diet" aria-label="Diet & Activities"
+                title="Diet & Activities">
+                <i class="fas fa-utensils"></i>
+                <span>Diet</span>
+            </button>
+            <button class="bottom-nav-button" data-tab-target="tab-summary" aria-label="Summary"
+                title="Notes & Summary">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Summary</span>
+            </button>
+            <button class="bottom-nav-button" data-tab-target="tab-history" aria-label="History"
+                title="View History">
+                <i class="fas fa-history"></i>
+                <span>History</span>
+            </button>
+        </nav>
+        <div id="toast-container"></div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

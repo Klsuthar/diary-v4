@@ -1,0 +1,61 @@
+{
+  "version": "1.0",
+  "date": "2025-09-06",
+  "day_id": 8101,
+  "environment": {
+    "temperature_c": "20-30",
+    "air_quality_index": 50,
+    "humidity_percent": 10,
+    "uv_index": 9,
+    "weather_condition": ""
+  },
+  "body_measurements": {
+    "weight_kg": 72,
+    "height_cm": 178,
+    "chest": 90,
+    "belly": 89
+  },
+  "health_and_fitness": {
+    "sleep_hours": "8:00",
+    "steps_count": null,
+    "steps_distance_km": null,
+    "kilocalorie": null,
+    "water_intake_liters": null,
+    "medications_taken": "Na",
+    "physical_symptoms": "",
+    "energy_level": 5,
+    "stress_level": 5,
+    "energy_stress_reason": ""
+  },
+  "mental_and_emotional_health": {
+    "mental_state": "",
+    "mental_state_reason": "",
+    "meditation_status": "Na",
+    "meditation_duration_min": 0
+  },
+  "personal_care": {
+    "face_product_name": "",
+    "face_product_brand": "",
+    "hair_product_name": "",
+    "hair_product_brand": "",
+    "hair_oil": "",
+    "skincare_routine": "Na"
+  },
+  "diet_and_nutrition": {
+    "breakfast": "",
+    "lunch": "",
+    "dinner": "",
+    "additional_items": ""
+  },
+  "activities_and_productivity": {
+    "tasks_today_english": "",
+    "travel_destination": "",
+    "phone_screen_on_hr": ""
+  },
+  "additional_notes": {
+    "key_events": "",
+    "other_note_status": "No"
+  },
+  "daily_activity_summary": "",
+  "overall_day_experience": ""
+}

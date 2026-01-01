@@ -1,0 +1,1830 @@
+/* --- Simple Splash Screen --- */
+.splash-screen {
+    display: none;
+}
+
+.splash-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.splash-bg-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(245, 158, 11, 0.15), transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(251, 191, 36, 0.1), transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.05), transparent 70%);
+    animation: particleFloat 15s ease-in-out infinite alternate;
+}
+
+.splash-bg-particles::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(245, 158, 11, 0.03) 2px, rgba(245, 158, 11, 0.03) 4px),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(245, 158, 11, 0.03) 2px, rgba(245, 158, 11, 0.03) 4px);
+    opacity: 0.3;
+}
+
+.splash-content {
+    text-align: center;
+    max-width: 90%;
+    padding: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.splash-logo {
+    margin-bottom: 40px;
+    animation: logoEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.logo-ring {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.logo-ring::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    border: 3px solid transparent;
+    border-top: 3px solid var(--accent-color);
+    border-right: 3px solid var(--accent-color);
+    border-radius: 50%;
+    animation: ringRotate 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+}
+
+.logo-ring::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    right: -30px;
+    bottom: -30px;
+    border: 2px solid transparent;
+    border-bottom: 2px solid rgba(251, 191, 36, 0.6);
+    border-left: 2px solid rgba(251, 191, 36, 0.6);
+    border-radius: 50%;
+    animation: ringRotate 6s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
+    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.4));
+}
+
+.logo-ring-inner {
+    position: relative;
+    z-index: 3;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.1), transparent);
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.splash-logo-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    box-shadow: 
+        0 0 40px rgba(245, 158, 11, 0.5),
+        0 0 80px rgba(245, 158, 11, 0.3),
+        0 0 120px rgba(245, 158, 11, 0.15),
+        inset 0 0 20px rgba(245, 158, 11, 0.1);
+    animation: logoGlow 3s ease-in-out infinite, logoPulse 2.5s ease-in-out infinite;
+    border: 4px solid rgba(245, 158, 11, 0.4);
+    filter: brightness(1.1);
+}
+
+.splash-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fbbf24 0%, var(--accent-color) 50%, #fbbf24 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 12px 0;
+    animation: titleGlow 1.5s ease-out 0.3s both, gradientShift 3s ease-in-out infinite;
+    letter-spacing: 2px;
+    text-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+}
+
+.splash-subtitle {
+    font-size: 1.1rem;
+    color: rgba(251, 191, 36, 0.9);
+    margin: 0;
+    opacity: 0;
+    animation: subtitleFade 1s ease-out 0.8s both;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
+}
+
+.splash-quote-container {
+    margin: 50px auto;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 40px;
+    max-width: 500px;
+}
+
+.quote-icon {
+    position: absolute;
+    font-size: 2rem;
+    color: rgba(245, 158, 11, 0.4);
+    animation: quoteFloat 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.3));
+}
+
+.quote-icon:first-child {
+    left: 0;
+    top: -15px;
+}
+
+.quote-icon.quote-right {
+    right: 0;
+    bottom: -15px;
+    animation-delay: 2s;
+}
+
+.splash-quote {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #e2e8f0;
+    text-align: center;
+    line-height: 1.8;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    animation: quoteAppear 1s ease-out 1s both;
+    font-style: italic;
+    max-width: 350px;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.splash-quote::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    animation: lineExpand 1s ease-out 1.5s both;
+}
+
+.splash-loading {
+    margin-top: 60px;
+}
+
+.loading-progress {
+    width: 220px;
+    height: 5px;
+    background: rgba(245, 158, 11, 0.15);
+    border-radius: 10px;
+    margin: 0 auto 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #fbbf24, var(--accent-color), #fbbf24);
+    background-size: 200% 100%;
+    border-radius: 10px;
+    width: 0;
+    animation: progressFill 3.5s cubic-bezier(0.4, 0, 0.2, 1), progressShine 1.5s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progressGlide 1.5s ease-in-out infinite;
+}
+
+.loading-text {
+    font-size: 0.95rem;
+    color: rgba(226, 232, 240, 0.8);
+    margin: 0;
+    opacity: 0;
+    animation: textFade 1s ease-out 1.2s both;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+/* Premium Animations */
+@keyframes particleFloat {
+    0% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+    50% { transform: scale(1.1) rotate(180deg); opacity: 0.8; }
+    100% { transform: scale(1) rotate(360deg); opacity: 0.5; }
+}
+
+@keyframes logoEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.8) rotate(-10deg);
+        filter: blur(10px);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(5px) scale(1.05) rotate(2deg);
+        filter: blur(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+        filter: blur(0px);
+    }
+}
+
+@keyframes ringRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes logoGlow {
+    0%, 100% { 
+        box-shadow: 
+            0 0 40px rgba(245, 158, 11, 0.5),
+            0 0 80px rgba(245, 158, 11, 0.3),
+            0 0 120px rgba(245, 158, 11, 0.15),
+            inset 0 0 20px rgba(245, 158, 11, 0.1);
+    }
+    50% { 
+        box-shadow: 
+            0 0 60px rgba(245, 158, 11, 0.7),
+            0 0 100px rgba(245, 158, 11, 0.5),
+            0 0 140px rgba(245, 158, 11, 0.3),
+            inset 0 0 30px rgba(245, 158, 11, 0.2);
+    }
+}
+
+@keyframes logoPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+@keyframes titleGlow {
+    0% {
+        opacity: 0;
+        transform: translateY(-15px);
+        filter: blur(8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+}
+
+@keyframes subtitleFade {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+        letter-spacing: 5px;
+    }
+    100% {
+        opacity: 0.9;
+        transform: translateY(0);
+        letter-spacing: 3px;
+    }
+}
+
+@keyframes quoteAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+        filter: blur(3px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+    }
+}
+
+@keyframes quoteFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+    50% { transform: translateY(-8px) rotate(8deg); opacity: 0.7; }
+}
+
+@keyframes lineExpand {
+    0% { width: 0; opacity: 0; }
+    100% { width: 60px; opacity: 1; }
+}
+
+@keyframes progressFill {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+@keyframes progressShine {
+    0%, 100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+}
+
+@keyframes progressGlide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+}
+
+@keyframes textFade {
+    0% {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    100% {
+        opacity: 0.8;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .splash-logo-img {
+        width: 110px;
+        height: 110px;
+    }
+    
+    .logo-ring::before {
+        top: -15px;
+        left: -15px;
+        right: -15px;
+        bottom: -15px;
+    }
+    
+    .logo-ring::after {
+        top: -22px;
+        left: -22px;
+        right: -22px;
+        bottom: -22px;
+    }
+    
+    .splash-title {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+    
+    .splash-subtitle {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+    }
+    
+    .splash-quote {
+        font-size: 1rem;
+        max-width: 280px;
+        padding: 0 10px;
+    }
+    
+    .splash-quote-container {
+        padding: 0 30px;
+        margin: 40px auto;
+    }
+    
+    .quote-icon {
+        font-size: 1.5rem;
+    }
+    
+    .loading-progress {
+        width: 180px;
+        height: 4px;
+    }
+    
+    .loading-text {
+        font-size: 0.85rem;
+    }
+}
+
+/* --- Base & Variables --- */
+:root {
+    --primary-bg: #0f172a;
+    --secondary-bg: #1e293b;
+    --tertiary-bg: #334155;
+    --accent-color: #f59e0b;
+    --accent-hover: #d97706;
+    --accent-light: rgba(245, 158, 11, 0.1);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --danger-color: #ef4444;
+    --danger-hover: #dc2626;
+    --success-color: #10b981;
+    --info-color: #3b82f6;
+    --warning-color: #f59e0b;
+    --font-family: 'Poppins', sans-serif;
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 16px;
+    --box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --box-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --input-padding-y: 12px;
+    --input-padding-x: 16px;
+    --button-padding-y: 12px;
+    --button-padding-x: 20px;
+    --top-bar-height: 64px;
+    --bottom-nav-height: 68px;
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-bg);
+}
+
+/* --- Top Bar --- */
+.top-bar {
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+    color: var(--text-primary);
+    padding: 0 16px;
+    height: var(--top-bar-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--box-shadow-lg);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+/* Light theme top bar */
+[style*="--primary-bg: #fafbfc"] .top-bar {
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(241, 245, 249, 0.8);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+}
+
+.logo-container {
+    padding-right: 10px;
+}
+
+.app-logo {
+    font-size: 1.6rem;
+    color: var(--accent-color);
+}
+
+.top-bar .date-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-grow: 1;
+    justify-content: center;
+    position: relative;
+    min-width: 180px;
+}
+
+.top-bar #currentDateDisplay {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+    padding: 8px 10px;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 130px;
+}
+
+.top-bar #currentDateDisplay:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.date-display-icon {
+    margin-left: 8px;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+
+.top-bar #date {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    min-width: 130px;
+    max-width: 200px;
+    top: 0;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    z-index: 1;
+}
+
+.top-bar .date-control-btn,
+.top-bar .top-action-btn {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: none;
+    padding: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    z-index: 2;
+    /* Ensure buttons are above date input */
+    position: relative;
+}
+
+.top-bar .date-control-btn:hover,
+.top-bar .top-action-btn:hover {
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-bar .date-control-btn:active,
+.top-bar .top-action-btn:active {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.top-bar .top-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    /* Gap between direct children like download, save, menu container */
+}
+
+
+/* --- Dropdown Menu Styles --- */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+    /* Or flex if needed */
+}
+
+.dropdown-content {
+    display: none;
+    /* Hidden by default, JS will toggle */
+    position: absolute;
+    right: 0;
+    top: calc(100% + 5px);
+    /* Position below the menu button */
+    background-color: var(--tertiary-bg);
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
+    border-radius: var(--border-radius-sm);
+    z-index: 101;
+    /* Above top-bar content but below modals if any */
+    padding: 5px 0;
+    overflow: hidden;
+    /* Ensures border-radius applies to children */
+}
+
+.dropdown-item {
+    color: var(--text-primary);
+    padding: 10px 15px;
+    text-decoration: none;
+    display: flex;
+    /* Changed to flex for icon alignment */
+    align-items: center;
+    /* Vertically align icon and text */
+    gap: 10px;
+    /* Space between icon and text */
+    font-size: 0.9rem;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item i {
+    font-size: 1em;
+    /* Icon size relative to text */
+    color: var(--text-secondary);
+    /* Softer icon color */
+    width: 18px;
+    /* Fixed width for icon alignment */
+    text-align: center;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+/* --- Main Content Area (Swipeable) --- */
+#diaryForm {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-top: var(--top-bar-height);
+    padding-bottom: var(--bottom-nav-height);
+}
+
+#tabViewPort {
+    width: 100%;
+    overflow: hidden;
+    flex-grow: 1;
+    position: relative;
+}
+
+#tabPanelsSlider {
+    display: flex;
+    height: 100%;
+    /* transition: transform 0.35s ease-in-out; */
+    /* JS will manage this for instant vs animated */
+}
+
+.tab-panel {
+    width: 100%;
+    flex-shrink: 0;
+    overflow-y: auto;
+    height: 100%;
+    padding: 15px 15px calc(var(--bottom-nav-height) + 20px);
+    background-color: var(--primary-bg);
+}
+
+/* --- Bottom Navigation --- */
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(30, 41, 59, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(245, 158, 11, 0.1);
+    height: var(--bottom-nav-height);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+/* Light theme bottom nav */
+[style*="--primary-bg: #fafbfc"] .bottom-nav {
+    background: rgba(255, 255, 255, 0.95);
+    border-top: 1px solid rgba(241, 245, 249, 0.8);
+    box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.06), 0 -1px 2px 0 rgba(0, 0, 0, 0.04);
+}
+
+/* Light theme form elements */
+[style*="--primary-bg: #fafbfc"] input[type="text"],
+[style*="--primary-bg: #fafbfc"] input[type="number"],
+[style*="--primary-bg: #fafbfc"] textarea,
+[style*="--primary-bg: #fafbfc"] select {
+    border-color: #e2e8f0;
+    background-color: #ffffff;
+}
+
+[style*="--primary-bg: #fafbfc"] input[type="text"]:focus,
+[style*="--primary-bg: #fafbfc"] input[type="number"]:focus,
+[style*="--primary-bg: #fafbfc"] textarea:focus,
+[style*="--primary-bg: #fafbfc"] select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* Black theme navigation */
+[style*="--primary-bg: #000000"] .top-bar {
+    background: rgba(0, 0, 0, 0.98);
+    border-bottom: 1px solid rgba(26, 26, 26, 0.8);
+    box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.02);
+}
+
+[style*="--primary-bg: #000000"] .bottom-nav {
+    background: rgba(0, 0, 0, 0.98);
+    border-top: 1px solid rgba(26, 26, 26, 0.8);
+    box-shadow: 0 -1px 3px 0 rgba(255, 255, 255, 0.02);
+}
+
+/* Black theme form elements */
+[style*="--primary-bg: #000000"] input[type="text"],
+[style*="--primary-bg: #000000"] input[type="number"],
+[style*="--primary-bg: #000000"] textarea,
+[style*="--primary-bg: #000000"] select {
+    border-color: #1a1a1a;
+    background-color: #0a0a0a;
+}
+
+[style*="--primary-bg: #000000"] input[type="text"]:focus,
+[style*="--primary-bg: #000000"] input[type="number"]:focus,
+[style*="--primary-bg: #000000"] textarea:focus,
+[style*="--primary-bg: #000000"] select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15), 0 1px 3px 0 rgba(255, 255, 255, 0.02);
+}
+
+.bottom-nav-button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+    color: var(--text-secondary);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    text-align: center;
+    position: relative;
+    /* For the dot indicator */
+}
+
+.bottom-nav-button i {
+    font-size: 1.4rem;
+    margin-bottom: 3px;
+    transition: transform 0.2s ease-out;
+}
+
+.bottom-nav-button span {
+    font-size: 0.65rem;
+    display: block;
+}
+
+.bottom-nav-button.active {
+    color: var(--accent-color);
+}
+
+.bottom-nav-button.active i {
+    transform: scale(1.1);
+}
+
+.bottom-nav-button:hover:not(.active) {
+    color: var(--text-primary);
+}
+
+/* Red Dot Indicator for Empty Fields in Tab */
+.bottom-nav-button.has-empty-indicator::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--danger-color);
+    border-radius: 50%;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+
+/* Red Dot Indicator for History Items with Empty Fields */
+.history-item.has-empty-fields::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--danger-color);
+    border-radius: 50%;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+
+/* Adjust right position for smaller screens if needed */
+@media (max-width: 360px) {
+    .bottom-nav-button.has-empty-indicator::after {
+        right: 8px;
+        /* Closer for very small screens */
+    }
+}
+
+
+/* --- General Form Elements (Mobile Optimized) --- */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: var(--input-padding-y) var(--input-padding-x);
+    border: 2px solid var(--tertiary-bg);
+    border-radius: var(--border-radius-sm);
+    box-sizing: border-box;
+    font-size: 0.95rem;
+    font-family: var(--font-family);
+    background-color: var(--secondary-bg);
+    color: var(--text-primary);
+    transition: all var(--transition-normal);
+    box-shadow: var(--box-shadow-sm);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-light), var(--box-shadow);
+    transform: translateY(-1px);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right var(--input-padding-x) center;
+    background-size: .65em auto;
+    padding-right: calc(var(--input-padding-x) * 2 + 1em);
+}
+
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+fieldset {
+    border: 1px solid var(--tertiary-bg);
+    border-radius: var(--border-radius-md);
+    padding: 18px;
+    margin-bottom: 20px;
+    background: var(--secondary-bg);
+    transition: border-color 0.2s ease;
+}
+
+fieldset:hover {
+    border-color: rgba(245, 158, 11, 0.2);
+}
+
+fieldset:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Modern form field spacing */
+fieldset > div {
+    margin-bottom: 20px;
+}
+
+fieldset > div:last-child {
+    margin-bottom: 0;
+}
+
+legend {
+    font-weight: 600;
+    color: var(--accent-color);
+    padding: 0 8px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: auto;
+}
+
+.import-last-day-btn {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1));
+    color: var(--accent-color);
+    border: 1.5px solid rgba(245, 158, 11, 0.4);
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+    width: 36px;
+    height: 36px;
+    position: relative;
+    overflow: hidden;
+}
+
+.import-last-day-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(245, 158, 11, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+.import-last-day-btn:hover {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(245, 158, 11, 0.2));
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.import-last-day-btn:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+.import-last-day-btn:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.2);
+}
+
+.import-last-day-btn i {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.25s ease;
+}
+
+.import-last-day-btn:hover i {
+    transform: scale(1.1);
+}
+
+.icon-legend {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+.slider-container {
+    margin-bottom: 15px;
+    /* Spacing for sliders */
+}
+
+.slider-container label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.slider-container label span {
+    /* The value display part of the label */
+    font-weight: 500;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin-top: 0;
+    /* Remove default top margin if any */
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    height: 18px;
+    /* Height of the clickable area for the thumb */
+}
+
+/* Track */
+input[type="range"]::-webkit-slider-runnable-track {
+    background: var(--tertiary-bg);
+    height: 6px;
+    border-radius: 3px;
+}
+
+input[type="range"]::-moz-range-track {
+    background: var(--tertiary-bg);
+    height: 6px;
+    border-radius: 3px;
+}
+
+/* Thumb */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -7px;
+    /* (Track height - Thumb height) / 2 ... but fine-tuned: (6px - 20px)/2 = -7px */
+    background-color: var(--accent-color);
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--secondary-bg);
+    /* Border to make it pop from track */
+    transition: background-color 0.2s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+    background-color: var(--accent-color);
+    height: 18px;
+    /* Slightly smaller for Moz consistency if needed */
+    width: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--secondary-bg);
+    transition: background-color 0.2s ease;
+}
+
+#summaryCounts,
+#overallCounts {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-align: right;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    /* Space below counts before next element */
+}
+
+/* Datalist - usually unstyled directly, browser handles rendering */
+datalist {}
+
+datalist option {}
+
+
+/* Generic Buttons (those not specifically .date-control-btn, .bottom-nav-button, .top-action-btn) */
+button:not(.date-control-btn):not(.bottom-nav-button):not(.top-action-btn):not(.dropdown-item):not(.history-item-actions button):not(.copy-json-btn):not(.history-item-expand-json) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: var(--button-padding-y) var(--button-padding-x);
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: var(--font-family);
+    transition: all var(--transition-normal);
+    box-shadow: var(--box-shadow);
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    color: var(--primary-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+button:not(.date-control-btn):not(.bottom-nav-button):not(.top-action-btn):not(.dropdown-item):not(.history-item-actions button):not(.copy-json-btn):not(.history-item-expand-json)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+button:not(.date-control-btn):not(.bottom-nav-button):not(.top-action-btn):not(.dropdown-item):not(.history-item-actions button):not(.copy-json-btn):not(.history-item-expand-json):hover::before {
+    left: 100%;
+}
+
+button:not(.date-control-btn):not(.bottom-nav-button):not(.top-action-btn):not(.dropdown-item):not(.history-item-actions button):not(.copy-json-btn):not(.history-item-expand-json):hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+button:not(.date-control-btn):not(.bottom-nav-button):not(.top-action-btn):not(.dropdown-item):not(.history-item-actions button):not(.copy-json-btn):not(.history-item-expand-json):active:not(:disabled) {
+    transform: translateY(0px);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+button:not(.date-control-btn):not(.bottom-nav-button):not(.top-action-btn):not(.dropdown-item):not(.history-item-actions button):not(.copy-json-btn):not(.history-item-expand-json) i {
+    font-size: 1em;
+    transition: none;
+}
+
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+
+/* --- Toast Notifications --- */
+#toast-container {
+    position: fixed;
+    bottom: calc(var(--bottom-nav-height) + 10px);
+    left: 15px;
+    right: 15px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column-reverse;
+    /* New toasts appear above old ones */
+    align-items: center;
+    /* Center toasts horizontally */
+    gap: 10px;
+    pointer-events: none;
+    /* IMPORTANT: Allows clicks to pass through the container */
+}
+
+.toast {
+    background: linear-gradient(135deg, var(--secondary-bg), rgba(30, 41, 59, 0.95));
+    color: var(--text-primary);
+    padding: 16px 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    width: 100%;
+    max-width: 340px;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    animation: slideUpToast 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, fadeOutToastGeneral 0.4s ease-in 2.8s forwards;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    pointer-events: auto;
+    touch-action: none;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- NEW CLASS for swipe-to-dismiss --- */
+.toast.exiting {
+    animation: none;
+    /* Cancel the default fade-out animation */
+    opacity: 0;
+    transition: transform 0.3s ease-in, opacity 0.3s ease-in;
+    /* The transform value will be set by JS based on swipe direction */
+}
+
+
+.toast i {
+    font-size: 1.2em;
+    padding: 8px;
+    border-radius: 50%;
+    background: rgba(245, 158, 11, 0.15);
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Style for toasts that have an action button */
+.toast-with-action {
+    padding: 18px 22px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    animation: slideUpToast 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    max-width: 360px;
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.toast-with-action p {
+    margin: 0;
+    flex: 1;
+    line-height: 1.4;
+}
+
+.toast-action-button {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    color: var(--primary-bg);
+    border: none;
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    flex-shrink: 0;
+    min-width: 80px;
+}
+
+.toast-action-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+}
+
+.toast-action-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.toast-dismiss-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+.toast-dismiss-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+}
+
+.toast.success {
+    border-color: rgba(16, 185, 129, 0.3);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), var(--secondary-bg));
+}
+
+.toast.success i {
+    color: var(--success-color);
+    background: rgba(16, 185, 129, 0.15);
+}
+
+.toast.error {
+    border-color: rgba(239, 68, 68, 0.3);
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), var(--secondary-bg));
+}
+
+.toast.error i {
+    color: var(--danger-color);
+    background: rgba(239, 68, 68, 0.15);
+}
+
+.toast.info {
+    border-color: rgba(59, 130, 246, 0.3);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), var(--secondary-bg));
+}
+
+.toast.info i {
+    color: var(--info-color);
+    background: rgba(59, 130, 246, 0.15);
+}
+
+/* Toast message text */
+.toast p {
+    margin: 0;
+    line-height: 1.4;
+    flex: 1;
+}
+
+/* Subtle animation shimmer effect */
+.toast::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shimmer 2s ease-in-out;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+
+@keyframes slideUpToast {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-5px) scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeOutToastGeneral {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+}
+
+/* --- History Tab Styles --- */
+#tab-history {
+    padding-bottom: calc(var(--bottom-nav-height) + 20px);
+}
+
+#historyListContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* Space between history items */
+}
+
+.history-item {
+    background-color: var(--secondary-bg);
+    padding: 12px 10px 12px 15px;
+    /* T R B L */
+    border-radius: var(--border-radius-sm);
+    box-shadow: var(--box-shadow);
+    /* display: flex; REMOVED - using internal flex for main-content */
+    flex-direction: column;
+    /* For main content and JSON view stacking */
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-left-color 0.2s ease;
+    border-left: 3px solid transparent;
+    /* Placeholder for selected state */
+    user-select: none;
+    /* Prevent text selection on click/tap */
+    position: relative;
+    /* For potential absolute positioned children if any */
+}
+
+.history-item-main-content {
+    /* NEW: Wrapper for top part of history item */
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+
+.history-item:hover:not(.selected) {
+    background-color: var(--tertiary-bg);
+    /* Hover for non-selected items */
+}
+
+.history-item.selected {
+    background-color: #2c3a4f;
+    /* Slightly different bg for selected */
+    border-left-color: var(--accent-color);
+}
+
+/* Checkbox Styling for History Items */
+.history-item-checkbox-container {
+    margin-right: 12px;
+    display: none;
+    /* Hidden by default, shown in multi-select mode */
+    align-items: center;
+    /* Vertically center checkbox */
+}
+
+.history-item.multi-select-active .history-item-checkbox-container {
+    display: flex;
+    /* Show checkbox in multi-select mode */
+}
+
+.history-item-checkbox {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--accent-color);
+    /* Color for the checkbox itself */
+    cursor: pointer;
+}
+
+
+.history-item-details {
+    flex-grow: 1;
+    /* Takes available space */
+    margin-right: 10px;
+    /* Space before action buttons */
+    overflow: hidden;
+    /* For text ellipsis */
+}
+
+.history-item-date {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+}
+
+.history-item-preview {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    /* Initial max-width, adjust with media queries */
+}
+
+/* Responsive preview width */
+@media (min-width: 380px) {
+    .history-item-preview {
+        max-width: 170px;
+    }
+}
+
+@media (min-width: 420px) {
+    .history-item-preview {
+        max-width: 210px;
+    }
+}
+
+@media (min-width: 480px) {
+    .history-item-preview {
+        max-width: 250px;
+    }
+}
+
+
+.history-item-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    /* Prevent shrinking */
+    margin-left: auto;
+    /* Push actions to the right */
+}
+
+/* Hide individual actions when item is part of multi-select UI */
+.history-item.multi-select-active .history-item-actions {
+    display: none;
+}
+
+
+.history-item-actions button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    padding: 5px;
+    /* Clickable area */
+    cursor: pointer;
+    transition: color 0.2s ease;
+    line-height: 1;
+    /* Ensure icon is centered */
+}
+
+.history-item-actions button:hover {
+    color: var(--text-primary);
+    /* General hover */
+}
+
+.history-item-actions button.action-edit:hover {
+    /* Specific hover colors */
+    color: var(--info-color);
+}
+
+.history-item-actions button.action-export:hover {
+    color: var(--success-color);
+}
+
+.history-item-actions button.action-delete:hover {
+    color: var(--danger-color);
+}
+
+/* Styles for JSON expand/collapse */
+.history-item-expand-json {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    /* Consistent with other action buttons */
+    padding: 5px;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+    line-height: 1;
+    margin-left: 0;
+    /* Adjusted from 8px, spacing handled by main-content gap */
+    order: -1;
+    /* Place it at the beginning of the flex row if needed, or manage with flex order if inside details */
+    margin-right: 8px;
+    /* Space between expand and checkbox */
+}
+
+.history-item-expand-json:hover {
+    color: var(--accent-color);
+}
+
+.history-item-expand-json.expanded i {
+    /* When expanded, rotate icon */
+    transform: rotate(90deg);
+}
+
+.history-item-json-wrapper {
+    position: relative;
+    display: none;
+    margin-top: 10px;
+}
+
+.history-item-json-view {
+    width: 100%;
+    background-color: var(--primary-bg);
+    border: 1px solid var(--tertiary-bg);
+    border-radius: var(--border-radius-sm);
+    padding: 10px;
+    padding-top: 40px;
+    /* Make space for the copy button */
+    box-sizing: border-box;
+    max-height: 300px;
+    overflow: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.copy-json-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background-color: var(--tertiary-bg);
+    color: var(--text-primary);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    font-family: var(--font-family);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.copy-json-btn:hover {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+}
+
+/* Top Bar Multi-Select Info and Button Styling */
+.multi-select-info {
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    margin-right: auto;
+    /* Pushes subsequent buttons to the right */
+    padding-left: 5px;
+    /* Some spacing */
+    display: none;
+    /* Hidden by default */
+}
+
+/* When in multi-select mode */
+.top-bar.multi-select-mode .date-controls {
+    display: none !important;
+    /* Hide date controls */
+}
+
+/* Hide regular top actions that are NOT part of multi-select controls */
+.top-bar.multi-select-mode .top-actions .top-action-btn:not(#multiSelectCount):not(#exportSelectedButton):not(#deleteSelectedButton):not(#cancelMultiSelectButton):not(#menuButton),
+.top-bar.multi-select-mode .top-actions .dropdown-container:not(:has(#multiSelectCount):not(:has(#exportSelectedButton)):not(:has(#deleteSelectedButton)):not(:has(#cancelMultiSelectButton))) {
+    display: none !important;
+}
+
+/* Specifically hide download, save buttons (and the new menu button if it's not a multi-select action container) */
+.top-bar.multi-select-mode .top-actions #downloadButton,
+.top-bar.multi-select-mode .top-actions #saveFormButton,
+.top-bar.multi-select-mode .top-actions #menuButton,
+/* Hide 3-dot menu in multi-select */
+.top-bar.multi-select-mode .top-actions .dropdown-container {
+    /* Hide the entire dropdown container */
+    display: none !important;
+}
+
+
+/* Show multi-select specific controls */
+.top-bar.multi-select-mode .top-actions #multiSelectCount,
+.top-bar.multi-select-mode .top-actions #exportSelectedButton,
+.top-bar.multi-select-mode .top-actions #deleteSelectedButton,
+.top-bar.multi-select-mode .top-actions #cancelMultiSelectButton {
+    display: flex !important;
+    /* Ensure they are flex items for alignment */
+}
+
+.no-history-message {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+/* --- Scrollable Number Selector --- */
+.scroll-selector-container {
+    margin-bottom: 15px;
+}
+
+.scroll-selector-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.scroll-selector {
+    height: 120px; /* Height for 3 items visible */
+    width: 80px;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    border: 1px solid var(--tertiary-bg);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--primary-bg);
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+.scroll-selector.horizontal {
+    height: 50px;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    display: flex;
+    align-items: center;
+}
+
+/* Hide scrollbar */
+.scroll-selector::-webkit-scrollbar {
+    display: none;
+}
+.scroll-selector {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-selector-item-padding {
+    height: 40px; /* (selector_height - item_height) / 2 */
+    flex-shrink: 0;
+}
+
+.scroll-selector-item {
+    height: 40px; /* Height of each number item */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    scroll-snap-align: center;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.scroll-selector-item.active {
+    color: var(--accent-color);
+    font-weight: 600;
+    transform: scale(1.1);
+}
+
+.temp-separator {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+}
+
+/* --- Most Used Apps Styles --- */
+.most-used-apps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.app-entry {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--tertiary-bg), rgba(51, 65, 85, 0.8));
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(245, 158, 11, 0.1);
+    transition: all 0.2s ease;
+}
+
+.app-entry:hover {
+    border-color: rgba(245, 158, 11, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.app-rank {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    color: var(--primary-bg);
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+}
+
+.app-name-input {
+    flex: 2;
+    margin-bottom: 0 !important;
+    font-size: 0.9rem;
+    padding: 10px 12px;
+}
+
+.app-time-input {
+    flex: 1;
+    margin-bottom: 0 !important;
+    font-size: 0.9rem;
+    padding: 10px 12px;
+    text-align: center;
+}
+
+.app-name-input::placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.app-time-input::placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* --- Media Queries for Responsiveness --- */
+@media (min-width: 400px) {
+
+    /* Example breakpoint */
+    .top-bar #currentDateDisplay {
+        font-size: 0.9rem;
+    }
+
+    .bottom-nav-button i {
+        font-size: 1.5rem;
+    }
+
+    .bottom-nav-button span {
+        font-size: 0.7rem;
+    }
+}
