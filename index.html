@@ -224,20 +224,9 @@
                             <div class="slider-container"> <label for="sleepQuality">Sleep Quality: <span
                                         id="sleepQualityValue">5</span></label> <input type="range" id="sleepQuality"
                                     name="sleepQuality" min="0" max="10" value="5" step="1" inputmode="none"> </div>
-                            <div> <label for="sleepQualityDescription">Sleep Quality Description:</label> <input type="text"
-                                    id="sleepQualityDescription" name="sleepQualityDescription" list="sleepQualityDescriptionSuggestions"
-                                    placeholder="e.g., Deep and restful, Light sleep, Interrupted"> <datalist id="sleepQualityDescriptionSuggestions">
-                                    <option value="Deep and restful"></option>
-                                    <option value="Light sleep"></option>
-                                    <option value="Interrupted sleep"></option>
-                                    <option value="Restless night"></option>
-                                    <option value="Peaceful sleep"></option>
-                                    <option value="Woke up multiple times"></option>
-                                    <option value="Difficulty falling asleep"></option>
-                                    <option value="Refreshing sleep"></option>
-                                    <option value="Tossed and turned"></option>
-                                    <option value="Slept like a baby"></option>
-                                </datalist> </div>
+                            <div> <label for="sleepQualityDescription">Sleep Quality Description:</label> <textarea
+                                    id="sleepQualityDescription" name="sleepQualityDescription" rows="3"
+                                    placeholder="e.g., Deep and restful, Light sleep, Interrupted"></textarea> </div>
                             <div> <label for="stepsCount">Steps Count:</label> <input type="number" id="stepsCount"
                                     name="stepsCount" placeholder="e.g., 8500"> </div>
                             <div> <label for="stepsDistanceKm">Steps Distance (km):</label> <input type="text"
@@ -518,9 +507,9 @@
                                 </div>
                                 <datalist id="appNameSuggestions"></datalist>
                             </div>
-                            <div> <label for="appUsageIntent">App Usage Intent:</label> <input type="text"
-                                    id="appUsageIntent" name="appUsageIntent"
-                                    placeholder="e.g., Work, Entertainment, Learning"> </div>
+                            <div> <label for="appUsageIntent">App Usage Intent:</label> <textarea
+                                    id="appUsageIntent" name="appUsageIntent" rows="3"
+                                    placeholder="e.g., Work, Entertainment, Learning"></textarea> </div>
                         </fieldset>
                     </div>
 
