@@ -8,7 +8,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1e293b">
 
-    <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+    <link rel="icon" href="images/logo.png" type="image/png">
     <link rel="alternate icon" href="images/logo.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="images/logo32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo16.png">
@@ -21,10 +21,11 @@
     <link rel="apple-touch-icon" sizes="76x76" href="images/logo64.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/logo64.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/logo64.png">
-    <link rel="apple-touch-icon" sizes="57x57" href="images/logo64.png"> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="apple-touch-icon" sizes="57x57" href="images/logo64.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" defer>
     <link rel="stylesheet" href="css/style.css">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -34,7 +35,7 @@
     <meta name="msapplication-TileColor" content="#1e293b">
     <meta name="msapplication-config" content="browserconfig.xml">
     <meta name="format-detection" content="telephone=no">
-    <link rel="mask-icon" href="images/logo.svg" color="#1e293b">
+    <link rel="mask-icon" href="images/logo.png" color="#1e293b">
 </head>
 
 <body>
@@ -154,7 +155,7 @@
                                     <div class="scroll-selector" id="temperatureMinSelector"></div>
                                     <span class="temp-separator">-</span>
                                     <div class="scroll-selector" id="temperatureMaxSelector"></div>
-                                </div>
+                                </div>>
                                 <input type="hidden" id="temperatureC" name="temperatureC">
                             </div>
                             <div class="scroll-selector-container">
@@ -536,7 +537,14 @@
         </nav>
         <div id="toast-container"></div>
     </div>
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(() => {});
+            });
+        }
+    </script>
 </body>
 
 </html>
