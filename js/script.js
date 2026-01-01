@@ -381,6 +381,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function setMoodSliderValue(inputId, value) {
+        if (value === null || value === undefined) return;
+        const hiddenInput = document.getElementById(inputId);
+        if (!hiddenInput) return;
+        
+        hiddenInput.value = value;
+        
+        const timeOfDay = inputId.replace('MoodLevel', '');
+        const wrapper = document.querySelector(`#${timeOfDay}MoodLevelSelector .mood-slider-numbers`);
+        if (wrapper) {
+            wrapper.querySelectorAll('span').forEach(span => {
+                if (span.dataset.value == value) {
+                    span.classList.add('active');
+                } else {
+                    span.classList.remove('active');
+                }
+            });
+        }
+    }
+
     function calculateDaysSince(startDate, endDateStr) {
         if (!endDateStr) return null;
         const [year, month, day] = endDateStr.split('-').map(Number);
@@ -652,13 +672,13 @@ document.addEventListener('DOMContentLoaded', () => {
             setValue('mentalStateReason', jsonData.mental_and_emotional_health.mental_state_reason); 
             if (jsonData.mental_and_emotional_health.mood_timeline) {
                 const mt = jsonData.mental_and_emotional_health.mood_timeline;
-                setValue('morningMoodLevel', mt.morning?.mood_level);
+                setMoodSliderValue('morningMoodLevel', mt.morning?.mood_level);
                 setMoodFeeling('morning', mt.morning?.mood_feeling);
-                setValue('afternoonMoodLevel', mt.afternoon?.mood_level);
+                setMoodSliderValue('afternoonMoodLevel', mt.afternoon?.mood_level);
                 setMoodFeeling('afternoon', mt.afternoon?.mood_feeling);
-                setValue('eveningMoodLevel', mt.evening?.mood_level);
+                setMoodSliderValue('eveningMoodLevel', mt.evening?.mood_level);
                 setMoodFeeling('evening', mt.evening?.mood_feeling);
-                setValue('nightMoodLevel', mt.night?.mood_level);
+                setMoodSliderValue('nightMoodLevel', mt.night?.mood_level);
                 setMoodFeeling('night', mt.night?.mood_feeling);
             }
             setValue('meditationStatus', jsonData.mental_and_emotional_health.meditation_status); 
@@ -2187,11 +2207,26 @@ document.addEventListener('DOMContentLoaded', () => {
     setupMoodDropdown('eveningMoodCategory', 'eveningMoodFeeling');
     setupMoodDropdown('nightMoodCategory', 'nightMoodFeeling');
     
-    // Setup mood level scroll selectors
-    setupScrollSelector(document.getElementById('morningMoodLevelSelector'), 0, 10, '', 1);
-    setupScrollSelector(document.getElementById('afternoonMoodLevelSelector'), 0, 10, '', 1);
-    setupScrollSelector(document.getElementById('eveningMoodLevelSelector'), 0, 10, '', 1);
-    setupScrollSelector(document.getElementById('nightMoodLevelSelector'), 0, 10, '', 1);
+    // Setup mood level sliders
+    function setupMoodSlider(wrapperId, hiddenInputId) {
+        const wrapper = document.querySelector(`#${wrapperId} .mood-slider-numbers`);
+        const hiddenInput = document.getElementById(hiddenInputId);
+        if (!wrapper || !hiddenInput) return;
+        
+        wrapper.querySelectorAll('span').forEach(span => {
+            span.addEventListener('click', function() {
+                wrapper.querySelectorAll('span').forEach(s => s.classList.remove('active'));
+                this.classList.add('active');
+                hiddenInput.value = this.dataset.value;
+                checkAndUpdateAllTabIcons();
+            });
+        });
+    }
+    
+    setupMoodSlider('morningMoodLevelSelector', 'morningMoodLevel');
+    setupMoodSlider('afternoonMoodLevelSelector', 'afternoonMoodLevel');
+    setupMoodSlider('eveningMoodLevelSelector', 'eveningMoodLevel');
+    setupMoodSlider('nightMoodLevelSelector', 'nightMoodLevel');
     
     checkPasswordProtection();
 
