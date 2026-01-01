@@ -2187,6 +2187,12 @@ document.addEventListener('DOMContentLoaded', () => {
     setupMoodDropdown('eveningMoodCategory', 'eveningMoodFeeling');
     setupMoodDropdown('nightMoodCategory', 'nightMoodFeeling');
     
+    // Setup mood level scroll selectors
+    setupScrollSelector(document.getElementById('morningMoodLevelSelector'), 0, 10, '', 1);
+    setupScrollSelector(document.getElementById('afternoonMoodLevelSelector'), 0, 10, '', 1);
+    setupScrollSelector(document.getElementById('eveningMoodLevelSelector'), 0, 10, '', 1);
+    setupScrollSelector(document.getElementById('nightMoodLevelSelector'), 0, 10, '', 1);
+    
     checkPasswordProtection();
 
     // --- Enhanced PWA Features ---
