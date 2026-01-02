@@ -386,9 +386,11 @@ document.addEventListener('DOMContentLoaded', () => {
             cognitive_mental_states: ['focused', 'distracted', 'confused', 'overthinking', 'mentally_heavy', 'mentally_clear']
         };
         
+        const normalizedFeeling = feeling.toLowerCase().trim().replace(/\s+/g, '_');
         let foundCategory = '';
+        
         for (const [category, moods] of Object.entries(moodData)) {
-            if (moods.includes(feeling)) {
+            if (moods.includes(normalizedFeeling)) {
                 foundCategory = category;
                 break;
             }
@@ -399,10 +401,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const feelingSelect = document.getElementById(`${timeOfDay}MoodFeeling`);
             if (categorySelect && feelingSelect) {
                 categorySelect.value = foundCategory;
-                categorySelect.dispatchEvent(new Event('change'));
+                const changeEvent = new Event('change', { bubbles: true });
+                categorySelect.dispatchEvent(changeEvent);
                 setTimeout(() => {
-                    feelingSelect.value = feeling;
-                }, 50);
+                    feelingSelect.disabled = false;
+                    feelingSelect.value = normalizedFeeling;
+                    if (!feelingSelect.value) {
+                        console.warn(`Mood feeling '${normalizedFeeling}' not found in dropdown for ${timeOfDay}`);
+                    }
+                }, 150);
             }
         }
     }
@@ -604,6 +611,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 setValue('otherNoteStatus', formDataForDate.otherNoteStatus || 'No');
                 setSelectorValuesFromData(formDataForDate);
+                
+                // Restore mood dropdowns
+                requestAnimationFrame(() => {
+                    ['morning', 'afternoon', 'evening', 'night'].forEach(timeOfDay => {
+                        const savedCategory = formDataForDate[`${timeOfDay}MoodCategory`];
+                        const savedFeeling = formDataForDate[`${timeOfDay}MoodFeeling`];
+                        
+                        if (savedCategory || savedFeeling) {
+                            const categorySelect = document.getElementById(`${timeOfDay}MoodCategory`);
+                            const feelingSelect = document.getElementById(`${timeOfDay}MoodFeeling`);
+                            
+                            if (savedCategory && categorySelect) {
+                                categorySelect.value = savedCategory;
+                                categorySelect.dispatchEvent(new Event('change', { bubbles: true }));
+                            }
+                            
+                            if (savedFeeling && feelingSelect) {
+                                requestAnimationFrame(() => {
+                                    feelingSelect.disabled = false;
+                                    feelingSelect.value = savedFeeling;
+                                });
+                            }
+                        }
+                    });
+                });
 
                 if (!document.hidden && !isMultiSelectModeActive) {
                     showToast('Previously saved data for this date loaded.', 'info');
@@ -732,14 +764,22 @@ document.addEventListener('DOMContentLoaded', () => {
             setValue('mentalStateReason', jsonData.mental_and_emotional_health.mental_state_reason); 
             if (jsonData.mental_and_emotional_health.mood_timeline) {
                 const mt = jsonData.mental_and_emotional_health.mood_timeline;
-                setMoodSliderValue('morningMoodLevel', mt.morning?.mood_level);
-                setMoodFeeling('morning', mt.morning?.mood_feeling);
-                setMoodSliderValue('afternoonMoodLevel', mt.afternoon?.mood_level);
-                setMoodFeeling('afternoon', mt.afternoon?.mood_feeling);
-                setMoodSliderValue('eveningMoodLevel', mt.evening?.mood_level);
-                setMoodFeeling('evening', mt.evening?.mood_feeling);
-                setMoodSliderValue('nightMoodLevel', mt.night?.mood_level);
-                setMoodFeeling('night', mt.night?.mood_feeling);
+                if (mt.morning) {
+                    setMoodSliderValue('morningMoodLevel', mt.morning.mood_level);
+                    if (mt.morning.mood_feeling) setMoodFeeling('morning', mt.morning.mood_feeling);
+                }
+                if (mt.afternoon) {
+                    setMoodSliderValue('afternoonMoodLevel', mt.afternoon.mood_level);
+                    if (mt.afternoon.mood_feeling) setMoodFeeling('afternoon', mt.afternoon.mood_feeling);
+                }
+                if (mt.evening) {
+                    setMoodSliderValue('eveningMoodLevel', mt.evening.mood_level);
+                    if (mt.evening.mood_feeling) setMoodFeeling('evening', mt.evening.mood_feeling);
+                }
+                if (mt.night) {
+                    setMoodSliderValue('nightMoodLevel', mt.night.mood_level);
+                    if (mt.night.mood_feeling) setMoodFeeling('night', mt.night.mood_feeling);
+                }
             }
             setValue('meditationStatus', jsonData.mental_and_emotional_health.meditation_status); 
             setValue('meditationDurationMin', jsonData.mental_and_emotional_health.meditation_duration_min); 
